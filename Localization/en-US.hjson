@@ -1,0 +1,16 @@
+Mods: {
+	MyTestMod: {
+		ItemName: {
+			BitBow: Bit Bow
+			BitSword: Bit Sword
+			ByteBow: Byte Bow
+			ByteSword: Byte Sword
+			BitShard: Bit Shard
+			ByteShard: Byte Shard
+		}
+
+		MapObject: {
+			TilePC: PC
+		}
+	}
+}

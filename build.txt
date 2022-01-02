@@ -1,0 +1,3 @@
+displayName = The very first mod
+author = FrostHoll
+version = 0.1
