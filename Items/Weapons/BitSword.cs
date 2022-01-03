@@ -2,13 +2,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using Microsoft.Xna.Framework;
-using Terraria.DataStructures;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace MyTestMod.Items.Weapons
 {
 	public class BitSword : ModItem
 	{
+
 		public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("This is the simpliest sword of information.");

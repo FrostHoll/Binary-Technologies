@@ -28,7 +28,7 @@ namespace MyTestMod.Items
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.Wire, 10);
-            recipe.AddRecipeGroup("IronBar", 3);
+            recipe.AddRecipeGroup("IronBar", 1);
             recipe.AddTile(ModContent.TileType<Tiles.TilePC>());
             recipe.Register();
         }

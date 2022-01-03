@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Microsoft.Xna.Framework;
+using Terraria.Localization;
 using Terraria.GameInput;
 
 namespace MyTestMod
@@ -13,6 +14,8 @@ namespace MyTestMod
         public static MyTestMod instance;
 
         public static ModKeybind randomButton;
+
+        public static readonly string TransPath = "Mods.MyTestMod.";
 
         public override void Load()
         {
@@ -89,19 +92,14 @@ namespace MyTestMod
             electShock = false;
         }
 
-        //public override void ProcessTriggers(TriggersSet triggersSet)
-        //{
-        //    if (MyTestMod.randomButton.JustPressed)
-        //    {
-        //        multiToolStatus++;
-        //        if (multiToolStatus > 1)
-        //        {
-        //            multiToolStatus = 0;
-        //        }
-        //        Main.NewText(multiToolStatus);
-        //    }
-            
-        //}
+        public override void ProcessTriggers(TriggersSet triggersSet)
+        {
+            if (MyTestMod.randomButton.JustPressed)
+            {
+                MyTestMod.GetBestiaryInfo(NPCID.Guide);
+            }
+
+        }
 
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {

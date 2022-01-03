@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.Localization;
 using Microsoft.Xna.Framework;
 
 namespace MyTestMod.NPCs
@@ -39,11 +40,10 @@ namespace MyTestMod.NPCs
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
-            bestiaryEntry.Info.Add(new SpawnConditionBestiaryInfoElement("Surface", 0, "Images/MapBG1", new Color(35, 40, 40, 255)));
-            bestiaryEntry.Info.Add(new SpawnConditionBestiaryOverlayInfoElement("Nighttime", 37));
+            bestiaryEntry.Info.Add(new SpawnConditionBestiaryInfoElement(Language.GetTextValue(MyTestMod.TransPath + "Biomes.Surface"), 0, "Images/MapBG1", new Color(35, 40, 40, 255)));
+            bestiaryEntry.Info.Add(new SpawnConditionBestiaryOverlayInfoElement(Language.GetTextValue(MyTestMod.TransPath + "Biomes.Nighttime"), 37));
             bestiaryEntry.Info.Add(new SpawnConditionDecorativeOverlayInfoElement("Images/MapBGOverlay4", Color.White));
-            bestiaryEntry.Info.Add(new FlavorTextBestiaryInfoElement("Once upon a time the Ancient people have created these robots in order to defend from " +
-                "monsters, but Dark powers sent them war against their creators."));
+            bestiaryEntry.Info.Add(new FlavorTextBestiaryInfoElement(Language.GetTextValue(MyTestMod.TransPath + "BrokenRobotDesc")));
         }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
@@ -96,9 +96,8 @@ namespace MyTestMod.NPCs
 
             if (NPC.localAI[AI_LASER_TIMER] <= 0f)
             {
-                ProjectileSource_NPC projectileSource_NPC = new ProjectileSource_NPC(NPC);
                 Vector2 projDirection = Vector2.Normalize(player.position - NPC.Top) * 8f;
-                int proj = Projectile.NewProjectile(projectileSource_NPC, new Vector2(NPC.Top.X, NPC.Top.Y + 15f), projDirection, ProjectileID.DeathLaser, NPC.damage / 2, 0f, Main.myPlayer);
+                int proj = Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), new Vector2(NPC.Top.X, NPC.Top.Y + 15f), projDirection, ProjectileID.DeathLaser, NPC.damage / 2, 0f, Main.myPlayer);
                 NPC.localAI[AI_LASER_TIMER] = 120f;
                 NPC.netUpdate = true;
             }

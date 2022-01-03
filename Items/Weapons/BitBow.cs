@@ -16,6 +16,7 @@ namespace MyTestMod.Items.Weapons
 		{
 			Item.damage = 20;
 			Item.DamageType = DamageClass.Ranged;
+			Item.scale = 0.6f;
 			Item.width = 40;
 			Item.height = 40;
 			Item.useTime = 20;
