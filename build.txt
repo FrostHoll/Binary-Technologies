@@ -1,3 +1,9 @@
-displayName = The very first mod
+displayName = [c/c35c16:MyTestMod]
 author = FrostHoll
 version = 0.1
+homepage = https://github.com/FrostHoll/MyTestMod
+hideCode = true
+hideResources = true
+includeSource = false
+buildIgnore = .gitignore, *.sln, *.csproj, *.user, obj\*, bin\*, .vs\*, Properties\*, .git\*
+includePDB = true
