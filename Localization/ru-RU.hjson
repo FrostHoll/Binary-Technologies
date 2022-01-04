@@ -20,6 +20,8 @@ Mods: {
 			ElectMaterial: Электрические запчасти
 			MultiToolAxe: Мультитул
 			MultiToolPickaxe: Мультитул
+			KilobyteSword: Килобайтовый Меч
+			KilobyteBow: Килобайтовый Лук
 		}
 
 		ItemTooltip: {
@@ -36,6 +38,8 @@ Mods: {
 			ElectMaterial: На первый взгляд, выглядит как металлолом.
 			MultiToolAxe: Кликните ПКМ, чтобы сменить на кирку
 			MultiToolPickaxe: Кликните ПКМ, чтобы сменить на топор
+			KilobyteSword: Вы чувствуете решительность в своей руке...
+			KilobyteBow: "Эти ощущения поистине пугающие...\nИмеет 33% шанс не потратить боеприпас"
 		}
 
 		MapObject: {
