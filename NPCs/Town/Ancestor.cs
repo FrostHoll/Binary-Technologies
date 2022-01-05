@@ -69,16 +69,24 @@ namespace MyTestMod.NPCs.Town
             string Ancestor1 = Language.GetTextValue(MyTestMod.TransPath + "Ancestor1");
             string Ancestor2 = Language.GetTextValue(MyTestMod.TransPath + "Ancestor2");
             string Ancestor3 = Language.GetTextValue(MyTestMod.TransPath + "Ancestor3");
+            string Ancestor4 = Language.GetTextValue(MyTestMod.TransPath + "Ancestor4");
+            string Ancestor5 = Language.GetTextValue(MyTestMod.TransPath + "Ancestor5");
             var guide = NPC.GetFirstNPCNameOrNull(NPCID.Guide);
             //string Ancestor3 = "This guy, " + guide + ", looks familiar... I guess I saw him someday, but I can't remember where and when exactly.";
             if (guide != null && Main.rand.Next(4) == 0)
             {
                 return Ancestor3;
             }
-            switch (Main.rand.Next(2))
+            if (!Main.dayTime && Main.rand.Next(3) == 0)
+            {
+                return Ancestor4;
+            }
+            switch (Main.rand.Next(3))
             {
                 case 0:
                     return Ancestor1;
+                case 1:
+                    return Ancestor5;
                 default:
                     return Ancestor2;
             }

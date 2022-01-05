@@ -17,14 +17,12 @@ namespace MyTestMod.Items.Weapons
 
 		public override void SetDefaults()
 		{
-
-			Item.damage = 50;
+			Item.damage = 48;
 			Item.DamageType = DamageClass.Ranged;
 			Item.width = 48;
 			Item.height = 48;
-			Item.useTime = 19;
-			Item.useAnimation = 19;
-			//Item.reuseDelay = 10;
+			Item.useTime = 25;
+			Item.useAnimation = 25;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 2.5f;
 			Item.value = Item.sellPrice(gold: 1, silver: 60);
@@ -33,7 +31,7 @@ namespace MyTestMod.Items.Weapons
 			Item.autoReuse = true;
 			Item.useAmmo = AmmoID.Arrow;
 			Item.shoot = ProjectileID.WoodenArrowFriendly;
-			Item.shootSpeed = 11f;
+			Item.shootSpeed = 9f;
 			Item.scale = 0.8f;
 		}
 
@@ -51,7 +49,7 @@ namespace MyTestMod.Items.Weapons
 			int numberProjectiles = 3;
 			for (int i = 0; i < numberProjectiles; i++)
 			{
-				Vector2 perturbedSpeed = velocity.RotatedByRandom(MathHelper.ToRadians(15));
+				Vector2 perturbedSpeed = velocity.RotatedByRandom(MathHelper.ToRadians(20));
 				Projectile.NewProjectile(source, position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockback, player.whoAmI);
 			}
 			return false;

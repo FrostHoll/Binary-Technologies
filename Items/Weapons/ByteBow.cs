@@ -15,7 +15,7 @@ namespace MyTestMod.Items.Weapons
 		public override void SetDefaults()
 		{
 
-			Item.damage = 38;
+			Item.damage = 34;
 			Item.DamageType = DamageClass.Ranged;
 			Item.width = 40;
 			Item.height = 40;
@@ -25,7 +25,7 @@ namespace MyTestMod.Items.Weapons
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 2;
 			Item.value = Item.sellPrice(gold: 1, silver: 60);
-			Item.rare = ItemRarityID.Blue;
+			Item.rare = ItemRarityID.Orange;
 			Item.UseSound = SoundID.Item5;
 			Item.autoReuse = true;
 			Item.useAmmo = AmmoID.Arrow;
