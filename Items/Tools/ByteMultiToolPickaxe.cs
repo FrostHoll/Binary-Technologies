@@ -5,12 +5,12 @@ using Terraria.Utilities;
 
 namespace MyTestMod.Items.Tools
 {
-	public class MultiToolPickaxe : ModItem
+	public class ByteMultiToolPickaxe : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("MultiTool");
-			Tooltip.SetDefault("Right click to switch to axe");
+			DisplayName.SetDefault("Byte MultiTool [Pickaxe]");
+			Tooltip.SetDefault("Right click to switch to hamaxe");
 		}
 
         public override void SetDefaults()
@@ -34,7 +34,7 @@ namespace MyTestMod.Items.Tools
         public override void AddRecipes()
         {
 			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(ModContent.ItemType<Items.ElectMaterial>(), 3);
+			recipe.AddIngredient(ModContent.ItemType<Items.Tools.BitMultiToolPickaxe>(), 1);
 			recipe.AddIngredient(ModContent.ItemType<Items.ByteShard>(), 1);
 			recipe.AddTile(ModContent.TileType<Tiles.TilePC>());
 			recipe.Register();
@@ -47,7 +47,7 @@ namespace MyTestMod.Items.Tools
 
 		public override void RightClick(Player player)
         {
-			player.QuickSpawnItem(ModContent.ItemType<Items.Tools.MultiToolAxe>());
+			player.QuickSpawnItem(ModContent.ItemType<Items.Tools.ByteMultiToolHamaxe>());
         }
 
 		public override bool? PrefixChance(int pre, UnifiedRandom rand) => (pre != -3 && pre != -1);

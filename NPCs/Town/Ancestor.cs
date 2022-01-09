@@ -71,6 +71,7 @@ namespace MyTestMod.NPCs.Town
             string Ancestor3 = Language.GetTextValue(MyTestMod.TransPath + "Ancestor3");
             string Ancestor4 = Language.GetTextValue(MyTestMod.TransPath + "Ancestor4");
             string Ancestor5 = Language.GetTextValue(MyTestMod.TransPath + "Ancestor5");
+            string Ancestor6 = Language.GetTextValue(MyTestMod.TransPath + "Ancestor6");
             var guide = NPC.GetFirstNPCNameOrNull(NPCID.Guide);
             //string Ancestor3 = "This guy, " + guide + ", looks familiar... I guess I saw him someday, but I can't remember where and when exactly.";
             if (guide != null && Main.rand.Next(4) == 0)
@@ -81,12 +82,14 @@ namespace MyTestMod.NPCs.Town
             {
                 return Ancestor4;
             }
-            switch (Main.rand.Next(3))
+            switch (Main.rand.Next(4))
             {
                 case 0:
                     return Ancestor1;
                 case 1:
                     return Ancestor5;
+                case 2:
+                    return Ancestor6;
                 default:
                     return Ancestor2;
             }
@@ -149,11 +152,40 @@ namespace MyTestMod.NPCs.Town
 
         public override void SetupShop(Chest shop, ref int nextSlot)
         {
+            int sale = 2;
+            if (NPC.downedMechBossAny) sale++;
+            if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3) sale++;
+            if (NPC.downedPlantBoss) sale++;
+            if (NPC.downedMoonlord) sale++;
+
             shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.BitShard>());
+            shop.item[nextSlot].shopCustomPrice = shop.item[nextSlot].value / sale;
             nextSlot++;
 
             shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.ByteShard>());
+            shop.item[nextSlot].shopCustomPrice = shop.item[nextSlot].value / (sale - 1);
             nextSlot++;
+
+            if (NPC.downedMechBossAny)
+            {
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.KilobyteShard>());
+                shop.item[nextSlot].shopCustomPrice = shop.item[nextSlot].value / (sale - 2);
+                nextSlot++;
+            }
+
+            if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
+            {
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.MegabyteShard>());
+                shop.item[nextSlot].shopCustomPrice = shop.item[nextSlot].value / (sale - 3);
+                nextSlot++;
+            }
+
+            if (NPC.downedPlantBoss)
+            {
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.GigabyteShard>());
+                shop.item[nextSlot].shopCustomPrice = shop.item[nextSlot].value / (sale - 4);
+                nextSlot++;
+            }
         }
     }
 }

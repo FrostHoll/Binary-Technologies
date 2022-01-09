@@ -20,7 +20,7 @@ namespace MyTestMod.Items
             Item.width = 12;
             Item.height = 12;
             Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(silver: 10);
+            Item.value = 6000;
             Item.maxStack = 999;
         }
 

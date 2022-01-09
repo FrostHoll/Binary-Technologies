@@ -7,42 +7,44 @@ using Terraria.Utilities;
 
 namespace MyTestMod.Items.Tools
 {
-	public class MultiToolAxe : ModItem
+	public class BitMultiToolHamaxe : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("MultiTool");
+			DisplayName.SetDefault("Bit MultiTool [Hamaxe]");
 			Tooltip.SetDefault("Right click to switch to pickaxe");
 		}
 
 		public override void SetDefaults()
 		{
 
-			Item.damage = 20;
+			Item.damage = 9;
 			Item.DamageType = DamageClass.Melee;
 			Item.width = 40;
 			Item.height = 40;
-			Item.useTime = 14;
+			Item.useTime = 23;
 			Item.useAnimation = 27;
 			Item.useStyle = ItemUseStyleID.Swing;
-			Item.knockBack = 7f;
+			Item.knockBack = 5.5f;
 			Item.value = 15000;
-			Item.rare = ItemRarityID.Orange;
+			Item.rare = ItemRarityID.Blue;
 			Item.UseSound = SoundID.Item1;
-			Item.axe = 30;
+			Item.axe = 11;
+			Item.hammer = 55;
 			Item.autoReuse = true;
 			Item.useTurn = true;
+			Item.scale = 0.8f;
 		}
 
-        public override bool CanRightClick()
-        {
-            return true;
-        }
+		public override bool CanRightClick()
+		{
+			return true;
+		}
 
-        public override void RightClick(Player player)
-        {
-            int _item = player.QuickSpawnItem(ModContent.ItemType<Items.Tools.MultiToolPickaxe>());
-        }
+		public override void RightClick(Player player)
+		{
+			int _item = player.QuickSpawnItem(ModContent.ItemType<Items.Tools.BitMultiToolPickaxe>());
+		}
 
 		public override bool? PrefixChance(int pre, UnifiedRandom rand) => (pre != -3 && pre != -1);
 	}
