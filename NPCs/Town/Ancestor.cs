@@ -36,12 +36,12 @@ namespace MyTestMod.NPCs.Town
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ancestor");
-            Main.npcFrameCount[NPC.type] = 3;
-            NPCID.Sets.ExtraFramesCount[NPC.type] = 1;
-            NPCID.Sets.AttackFrameCount[NPC.type] = 1;
-            NPCID.Sets.DangerDetectRange[NPC.type] = 550;
+            Main.npcFrameCount[NPC.type] = 26;
+            NPCID.Sets.ExtraFramesCount[NPC.type] = 9;
+            NPCID.Sets.AttackFrameCount[NPC.type] = 4;
+            NPCID.Sets.DangerDetectRange[NPC.type] = 500;
             NPCID.Sets.AttackType[NPC.type] = 3;
-            NPCID.Sets.AttackTime[NPC.type] = 30;
+            NPCID.Sets.AttackTime[NPC.type] = 15;
             NPCID.Sets.AttackAverageChance[NPC.type] = 30;
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -134,8 +134,8 @@ namespace MyTestMod.NPCs.Town
 
         public override void TownNPCAttackCooldown(ref int cooldown, ref int randExtraCooldown)
         {
-            cooldown = 32;
-            randExtraCooldown = 33;
+            cooldown = 20;
+            randExtraCooldown = 25;
         }
 
         public override void TownNPCAttackSwing(ref int itemWidth, ref int itemHeight)
@@ -148,6 +148,10 @@ namespace MyTestMod.NPCs.Town
         {
             item = ModContent.Request<Texture2D>("MyTestMod/Items/Weapons/BitSword").Value;
             itemSize = 32;
+            scale = 0.8f;
+            if (NPC.spriteDirection == -1) offset = new Vector2(10f, 8f);
+            else if (NPC.spriteDirection == 1) offset = new Vector2(-8f, 8f);
+            else offset = Vector2.Zero;
         }
 
         public override void SetupShop(Chest shop, ref int nextSlot)
