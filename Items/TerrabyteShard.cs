@@ -13,7 +13,7 @@ namespace MyTestMod.Items
         {
             DisplayName.SetDefault("Terrabyte Shard");
             Tooltip.SetDefault("[c/c35c16:The absolute power of the knowledge of this world.]");
-            ItemID.Sets.ItemIconPulse[Item.type] = true;
+            //ItemID.Sets.ItemIconPulse[Item.type] = true;
         }
 
         public override void SetDefaults()

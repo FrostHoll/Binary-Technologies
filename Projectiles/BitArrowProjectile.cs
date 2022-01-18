@@ -30,5 +30,6 @@ namespace MyTestMod.Projectiles
         {
             Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 3, Projectile.velocity.X * 0.25f, Projectile.velocity.Y * 0.25f, 150, default(Color), 1f);
         }
+
     }
 }

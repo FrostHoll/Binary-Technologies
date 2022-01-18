@@ -13,7 +13,6 @@ namespace MyTestMod.Items
         {
             DisplayName.SetDefault("Gigabyte Shard");
             Tooltip.SetDefault("The existence of this is beyond your comprehension.");
-            ItemID.Sets.ItemIconPulse[Item.type] = true;
         }
 
         public override void SetDefaults()
@@ -31,6 +30,7 @@ namespace MyTestMod.Items
             recipe.AddIngredient(ModContent.ItemType<Items.MegabyteShard>(), 8);
             recipe.AddIngredient(ItemID.Wire, 10);
             recipe.AddIngredient(ItemID.SpectreBar, 1);
+            recipe.AddIngredient(ItemID.BeetleHusk, 1);
             recipe.AddTile(ModContent.TileType<Tiles.TilePC>());
             recipe.Register();
         }

@@ -13,7 +13,7 @@ namespace MyTestMod.Items
         {
             DisplayName.SetDefault("Kilobyte Shard");
             Tooltip.SetDefault("You feel that this shard is full of knowledge about this world...");
-            ItemID.Sets.ItemIconPulse[Item.type] = true;
+            //ItemID.Sets.ItemIconPulse[Item.type] = true;
         }
 
         public override void SetDefaults()

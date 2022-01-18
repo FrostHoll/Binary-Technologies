@@ -13,7 +13,7 @@ namespace MyTestMod.Items
         {
             DisplayName.SetDefault("Megabyte Shard");
             Tooltip.SetDefault("You can barely hold it in your hands...");
-            ItemID.Sets.ItemIconPulse[Item.type] = true;
+            //ItemID.Sets.ItemIconPulse[Item.type] = true;
         }
 
         public override void SetDefaults()

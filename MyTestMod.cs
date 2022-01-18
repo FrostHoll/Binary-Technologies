@@ -96,7 +96,8 @@ namespace MyTestMod
         {
             if (MyTestMod.randomButton.JustPressed)
             {
-                MyTestMod.GetBestiaryInfo(NPCID.Guide);
+                //MyTestMod.GetBestiaryInfo(NPCID.Guide);
+                
             }
 
         }
