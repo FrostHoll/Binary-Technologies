@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MyTestMod.Items.Developers
+namespace BinaryTechnologies.Items.Developers
 {
 	public class InfinityDirt : ModItem
 	{

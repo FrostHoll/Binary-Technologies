@@ -3,7 +3,7 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 
-namespace MyTestMod.Projectiles
+namespace BinaryTechnologies.Projectiles
 {
     public class BitArrowProjectile : ModProjectile
     {

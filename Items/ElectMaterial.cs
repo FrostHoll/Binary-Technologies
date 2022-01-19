@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MyTestMod.Items
+namespace BinaryTechnologies.Items
 {
     class ElectMaterial : ModItem
     {

@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 
 
-namespace MyTestMod.Items.Ammo
+namespace BinaryTechnologies.Items.Ammo
 {
     public class BitArrow : ModItem
     {

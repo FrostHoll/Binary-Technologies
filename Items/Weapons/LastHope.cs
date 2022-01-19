@@ -5,7 +5,7 @@ using static Terraria.ModLoader.ModContent;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 
-namespace MyTestMod.Items.Weapons
+namespace BinaryTechnologies.Items.Weapons
 {
 	public class LastHope : ModItem
 	{

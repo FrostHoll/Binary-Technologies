@@ -4,29 +4,18 @@ using Terraria.ID;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Microsoft.Xna.Framework;
-using Terraria.Localization;
-using Terraria.GameInput;
 
-namespace MyTestMod
+namespace BinaryTechnologies
 {
-    public class MyTestMod : Mod
+    public class BinaryTechnologies : Mod
     {
-        public static MyTestMod instance;
+        public static BinaryTechnologies instance;
 
-        public static ModKeybind randomButton;
-
-        public static readonly string TransPath = "Mods.MyTestMod.";
+        public static readonly string TransPath = "Mods.BinaryTechnologies.";
 
         public override void Load()
         {
             instance = this;
-
-            randomButton = KeybindLoader.RegisterKeybind(this, "New button", Microsoft.Xna.Framework.Input.Keys.P);
-        }
-
-        public override void Unload()
-        {
-            randomButton = null;
         }
 
         public static void GetBestiaryInfo(int npcID)
@@ -77,7 +66,7 @@ namespace MyTestMod
         }
     }
 
-    public class MyTestModPlayer : ModPlayer
+    public class BinaryTechnologiesPlayer : ModPlayer
     {
         public bool electpwrglove = false;
 
@@ -90,16 +79,6 @@ namespace MyTestMod
             base.ResetEffects();
             electpwrglove = false;
             electShock = false;
-        }
-
-        public override void ProcessTriggers(TriggersSet triggersSet)
-        {
-            if (MyTestMod.randomButton.JustPressed)
-            {
-                //MyTestMod.GetBestiaryInfo(NPCID.Guide);
-                
-            }
-
         }
 
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)

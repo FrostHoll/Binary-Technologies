@@ -3,7 +3,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace MyTestMod.Items.Accessories
+namespace BinaryTechnologies.Items.Accessories
 {
 	public class Adrenaline : ModItem
 	{

@@ -5,7 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 
-namespace MyTestMod.Items.Tools
+namespace BinaryTechnologies.Items.Tools
 {
 	public class KilobyteMultiToolHamaxe : ModItem
 	{

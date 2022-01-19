@@ -3,7 +3,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace MyTestMod.Items.Accessories
+namespace BinaryTechnologies.Items.Accessories
 {
 	public class ElectPwrGlove : ModItem
 	{
@@ -33,7 +33,7 @@ namespace MyTestMod.Items.Accessories
 			player.GetDamage(DamageClass.Melee) += 0.08f;
 			player.moveSpeed -= 0.1f;
 			player.maxRunSpeed -= 0.1f;
-			player.GetModPlayer<MyTestModPlayer>().electpwrglove = true;
+			player.GetModPlayer<BinaryTechnologiesPlayer>().electpwrglove = true;
 		}
 
 		public override void AddRecipes()

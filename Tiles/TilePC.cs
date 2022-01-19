@@ -4,7 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
-namespace MyTestMod.Tiles
+namespace BinaryTechnologies.Tiles
 {
 	public class TilePC : ModTile
 	{

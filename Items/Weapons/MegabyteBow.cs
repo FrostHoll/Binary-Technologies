@@ -5,9 +5,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
-namespace MyTestMod.Items.Weapons
+namespace BinaryTechnologies.Items.Weapons
 {
-	public class MegabyteBow : ModItem
+    public class MegabyteBow : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -38,7 +38,7 @@ namespace MyTestMod.Items.Weapons
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(ItemType<Items.Weapons.KilobyteBow>(), 1);
+			recipe.AddIngredient(ItemType<KilobyteBow>(), 1);
 			recipe.AddIngredient(ItemType<Items.MegabyteShard>(), 1);
 			recipe.AddTile(ModContent.TileType<Tiles.TilePC>());
 			recipe.Register();

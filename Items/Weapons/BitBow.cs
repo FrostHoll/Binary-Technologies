@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
-namespace MyTestMod.Items.Weapons
+namespace BinaryTechnologies.Items.Weapons
 {
 	public class BitBow : ModItem
 	{

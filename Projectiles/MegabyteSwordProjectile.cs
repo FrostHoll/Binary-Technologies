@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
-namespace MyTestMod.Projectiles
+namespace BinaryTechnologies.Projectiles
 {
     public class MegabyteSwordProjectile : ModProjectile
     {

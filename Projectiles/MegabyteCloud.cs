@@ -3,7 +3,7 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 
-namespace MyTestMod.Projectiles
+namespace BinaryTechnologies.Projectiles
 {
     class MegabyteCloud40 : ModProjectile
     {
@@ -13,7 +13,7 @@ namespace MyTestMod.Projectiles
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
 
-        public override string Texture => "MyTestMod/Projectiles/MegabyteCloud40";
+        public override string Texture => "BinaryTechnologies/Projectiles/MegabyteCloud40";
 
         public override void SetDefaults()
         {
@@ -39,7 +39,7 @@ namespace MyTestMod.Projectiles
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
 
-        public override string Texture => "MyTestMod/Projectiles/MegabyteCloud32";
+        public override string Texture => "BinaryTechnologies/Projectiles/MegabyteCloud32";
 
         public override void SetDefaults()
         {
@@ -65,7 +65,7 @@ namespace MyTestMod.Projectiles
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
 
-        public override string Texture => "MyTestMod/Projectiles/MegabyteCloud30";
+        public override string Texture => "BinaryTechnologies/Projectiles/MegabyteCloud30";
 
         public override void SetDefaults()
         {

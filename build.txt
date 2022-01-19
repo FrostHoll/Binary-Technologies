@@ -1,7 +1,7 @@
-displayName = [c/c35c16:MyTestMod]
-author = FrostHoll
-version = 0.1
-homepage = https://github.com/FrostHoll/MyTestMod
+displayName = Binary Technologies
+author = FrostHoll, Goodtrip
+version = 0.1.2
+homepage = https://github.com/FrostHoll/Binary-Technologies
 hideCode = true
 hideResources = true
 includeSource = false

@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 
-namespace MyTestMod.Items
+namespace BinaryTechnologies.Items
 {
     class MegabyteShard : ModItem
     {

@@ -7,14 +7,14 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MyTestMod.NPCs.Town
+namespace BinaryTechnologies.NPCs.Town
 {
     [AutoloadHead]
     public class Ancestor : ModNPC
     {
-        public override string Texture => "MyTestMod/NPCs/Town/Ancestor";
+        public override string Texture => "BinaryTechnologies/NPCs/Town/Ancestor";
 
-        public override string HeadTexture => "MyTestMod/NPCs/Town/AncestorHead";
+        public override string HeadTexture => "BinaryTechnologies/NPCs/Town/AncestorHead";
 
         public override void SetDefaults()
         {
@@ -46,8 +46,8 @@ namespace MyTestMod.NPCs.Town
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
-            bestiaryEntry.Info.Add(new SpawnConditionBestiaryInfoElement(Language.GetTextValue(MyTestMod.TransPath + "Biomes.Surface"), 0, "Images/MapBG1"));
-            bestiaryEntry.Info.Add(new FlavorTextBestiaryInfoElement(Language.GetTextValue(MyTestMod.TransPath + "AncestorDesc")));
+            bestiaryEntry.Info.Add(new SpawnConditionBestiaryInfoElement(Language.GetTextValue(BinaryTechnologies.TransPath + "Biomes.Surface"), 0, "Images/MapBG1"));
+            bestiaryEntry.Info.Add(new FlavorTextBestiaryInfoElement(Language.GetTextValue(BinaryTechnologies.TransPath + "AncestorDesc")));
         }
 
         public override string TownNPCName()
@@ -66,12 +66,12 @@ namespace MyTestMod.NPCs.Town
         public override string GetChat()
         {
             
-            string Ancestor1 = Language.GetTextValue(MyTestMod.TransPath + "Ancestor1");
-            string Ancestor2 = Language.GetTextValue(MyTestMod.TransPath + "Ancestor2");
-            string Ancestor3 = Language.GetTextValue(MyTestMod.TransPath + "Ancestor3");
-            string Ancestor4 = Language.GetTextValue(MyTestMod.TransPath + "Ancestor4");
-            string Ancestor5 = Language.GetTextValue(MyTestMod.TransPath + "Ancestor5");
-            string Ancestor6 = Language.GetTextValue(MyTestMod.TransPath + "Ancestor6");
+            string Ancestor1 = Language.GetTextValue(BinaryTechnologies.TransPath + "Ancestor1");
+            string Ancestor2 = Language.GetTextValue(BinaryTechnologies.TransPath + "Ancestor2");
+            string Ancestor3 = Language.GetTextValue(BinaryTechnologies.TransPath + "Ancestor3");
+            string Ancestor4 = Language.GetTextValue(BinaryTechnologies.TransPath + "Ancestor4");
+            string Ancestor5 = Language.GetTextValue(BinaryTechnologies.TransPath + "Ancestor5");
+            string Ancestor6 = Language.GetTextValue(BinaryTechnologies.TransPath + "Ancestor6");
             var guide = NPC.GetFirstNPCNameOrNull(NPCID.Guide);
             //string Ancestor3 = "This guy, " + guide + ", looks familiar... I guess I saw him someday, but I can't remember where and when exactly.";
             if (guide != null && Main.rand.Next(4) == 0)
@@ -146,7 +146,7 @@ namespace MyTestMod.NPCs.Town
 
         public override void DrawTownAttackSwing(ref Texture2D item, ref int itemSize, ref float scale, ref Vector2 offset)
         {
-            item = ModContent.Request<Texture2D>("MyTestMod/Items/Weapons/BitSword").Value;
+            item = ModContent.Request<Texture2D>("BinaryTechnologies/Items/Weapons/BitSword").Value;
             itemSize = 32;
             scale = 0.8f;
             if (NPC.spriteDirection == -1) offset = new Vector2(10f, 8f);
