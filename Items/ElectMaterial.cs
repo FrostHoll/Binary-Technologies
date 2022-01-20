@@ -18,7 +18,7 @@ namespace BinaryTechnologies.Items
             Item.width = 12;
             Item.height = 12;
             Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(silver: 2);
+            Item.value = 1000;
             Item.maxStack = 999;
         }
 

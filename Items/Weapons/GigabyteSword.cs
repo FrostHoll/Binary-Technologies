@@ -23,7 +23,7 @@ namespace BinaryTechnologies.Items.Weapons
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 4.5f;
             Item.scale = 1f;
-            Item.value = 10000;
+            Item.value = 1400000;
             Item.rare = ItemRarityID.Yellow;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;

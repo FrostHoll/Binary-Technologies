@@ -23,7 +23,7 @@ namespace BinaryTechnologies.Items.Weapons
 			Item.useAnimation = 20;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 2;
-			Item.value = Item.sellPrice(silver: 80);
+			Item.value = 10000;
 			Item.rare = ItemRarityID.Blue;
 			Item.UseSound = SoundID.Item5;
 			Item.autoReuse = false;

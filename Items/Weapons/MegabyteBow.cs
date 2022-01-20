@@ -24,7 +24,7 @@ namespace BinaryTechnologies.Items.Weapons
 			Item.useAnimation = 25;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 2.5f;
-			Item.value = Item.sellPrice(gold: 1, silver: 60);
+			Item.value = 180000;
 			Item.rare = ItemRarityID.Lime;
 			Item.UseSound = SoundID.Item5;
 			Item.autoReuse = true;

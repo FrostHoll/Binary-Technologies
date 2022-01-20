@@ -1,7 +1,7 @@
 displayName = Binary Technologies
 author = FrostHoll, Goodtrip
 version = 0.1.2
-homepage = https://github.com/FrostHoll/Binary-Technologies
+homepage = https://forums.terraria.org/index.php?threads/binary-technologies.110513/
 hideCode = true
 hideResources = true
 includeSource = false

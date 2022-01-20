@@ -21,7 +21,7 @@ namespace BinaryTechnologies.Items.Accessories
 		{
 			Item.width = 16;
 			Item.height = 16;
-			Item.value = Item.sellPrice(silver:60);
+			Item.value = 50000;
 			Item.rare = ItemRarityID.Green;
 			Item.maxStack = 1;
 			Item.accessory = true;

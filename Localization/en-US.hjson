@@ -18,7 +18,7 @@ Mods: {
 				DislikeCrowded: All these people... It's so noisy here, I can't keep calm.
 				HateCrowded: All these people... It's so noisy here, I can't keep calm.
 				LikeBiome: "Why do I like {BiomeName}? It's so dark and silent here. And, of course, useful ores are here too!"
-				LoveBiome: "{BiomeName} reminds me my native home. Here I feel comfortable."
+				LoveBiome: "{BiomeName} reminds me my native home."
 				DislikeBiome: "No, I don't like {BiomeName}. I owe something to the Duke, so I don't want to get in his way."
 				HateBiome: "Why we're here? You know for sure that I hate {BiomeName}. This damn sun! I feel like I'm melting!"
 				LikeNPC: "Oh yeah, {NPCName} is a good man. We usually talk about fun topics. He has really interesting view of the world."

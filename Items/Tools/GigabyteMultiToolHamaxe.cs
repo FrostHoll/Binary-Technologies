@@ -26,7 +26,7 @@ namespace BinaryTechnologies.Items.Tools
 			Item.useAnimation = 22;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 7f;
-			Item.value = 15000;
+			Item.value = 1400000;
 			Item.rare = ItemRarityID.Yellow;
 			Item.UseSound = SoundID.Item1;
 			Item.axe = 30;

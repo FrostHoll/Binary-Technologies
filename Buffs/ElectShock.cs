@@ -21,7 +21,7 @@ namespace BinaryTechnologies.Buffs
 
 		public override void Update(NPC npc, ref int buffIndex)
 		{
-			npc.GetGlobalNPC<MyGlobalNPC>().electShock = true;
+			npc.GetGlobalNPC<BinaryTechnologiesNPC>().electShock = true;
 		}
 	}
 }
