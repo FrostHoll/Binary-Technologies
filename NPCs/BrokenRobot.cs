@@ -1,6 +1,5 @@
 ﻿using Terraria;
 using Terraria.ID;
-using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.Bestiary;
@@ -17,6 +16,12 @@ namespace BinaryTechnologies.NPCs
             DisplayName.SetDefault("Broken Robot");
             Main.npcFrameCount[NPC.type] = 3;
 
+            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                Velocity = 0.5f,
+                Direction = -1
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 
         }
 
@@ -40,10 +45,11 @@ namespace BinaryTechnologies.NPCs
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
-            bestiaryEntry.Info.Add(new SpawnConditionBestiaryInfoElement(Language.GetTextValue(BinaryTechnologies.TransPath + "Biomes.Surface"), 0, "Images/MapBG1", new Color(35, 40, 40, 255)));
-            bestiaryEntry.Info.Add(new SpawnConditionBestiaryOverlayInfoElement(Language.GetTextValue(BinaryTechnologies.TransPath + "Biomes.Nighttime"), 37));
-            bestiaryEntry.Info.Add(new SpawnConditionDecorativeOverlayInfoElement("Images/MapBGOverlay4", Color.White));
-            bestiaryEntry.Info.Add(new FlavorTextBestiaryInfoElement(Language.GetTextValue(BinaryTechnologies.TransPath + "BrokenRobotDesc")));
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
+                new FlavorTextBestiaryInfoElement(Language.GetTextValue(BinaryTechnologies.TransPath + "Bestiary.BrokenRobot"))
+            });
         }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)

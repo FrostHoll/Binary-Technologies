@@ -1,21 +1,31 @@
 Mods: {
 	BinaryTechnologies: {
-		Biomes: {
-			Surface: Surface
-			Nighttime: Nighttime
-		}
-
-		ItemName: {
-			BitBow: Bit Bow
-			BitSword: Bit Sword
-			ByteBow: Byte Bow
-			ByteSword: Byte Sword
-			BitShard: Bit Shard
-			ByteShard: Byte Shard
+		Bestiary: {
+			Ancestor: He is one of the last representatives of an ancient civilization that was destroyed by the wrath of the gods. He may be strange, but can you find a common language?
+			BrokenRobot: Once upon a time the Ancient people have created these robots in order to defend from monsters, but Dark powers sent them war against their creators.
 		}
 
 		MapObject: {
 			TilePC: PC
+		}
+
+		TownNPCMood: {
+			Ancestor: {
+				Content: What? Ah, I'm fine. Anyway, why you're asking?
+				NoHome: Brrr, it's too cold outside. I wish there was a home with comfy fireplace...
+				LoveSpace: There is so comfy here.
+				FarFromHome: We're so far away from my home.
+				DislikeCrowded: All these people... It's so noisy here, I can't keep calm.
+				HateCrowded: All these people... It's so noisy here, I can't keep calm.
+				LikeBiome: "Why do I like {BiomeName}? It's so dark and silent here. And, of course, useful ores are here too!"
+				LoveBiome: "{BiomeName} reminds me my native home. Here I feel comfortable."
+				DislikeBiome: "No, I don't like {BiomeName}. I owe something to the Duke, so I don't want to get in his way."
+				HateBiome: "Why we're here? You know for sure that I hate {BiomeName}. This damn sun! I feel like I'm melting!"
+				LikeNPC: "Oh yeah, {NPCName} is a good man. We usually talk about fun topics. He has really interesting view of the world."
+				LoveNPC: "Listen, just between us. {NPCName} has really great taste. What does it mean? Um, well, she understands me... Anyway, enough about it."
+				DislikeNPC: "Have I already told you about {NPCName}? If not, I feel very weird around him..."
+				HateNPC: "I hate all the loud noises caused by {NPCName} and his explosives! I just want peace and quiet."
+			}
 		}
 
 		Ancestor1: Unlike mine, this world looks peaceful and virgin. I really like it.
@@ -24,8 +34,5 @@ Mods: {
 		Ancestor4: Look, the creations of my people roam the world, but instead of protection, they shoot at us. This is inconceivable!
 		Ancestor5: When I look at you, it seems to me that you are strong enough to solve the mystery of the disappearance of our people...
 		Ancestor6: What? Why do you need 8 bytes shard for a kilobyte shard and not 1024? I don't know, but what do you want it to be 1024?
-
-		BrokenRobotDesc: Once upon a time the Ancient people have created these robots in order to defend from monsters, but Dark powers sent them war against their creators.
-		AncestorDesc: He is one of the last representatives of an ancient civilization that was destroyed by the wrath of the gods. He may be strange, but can you find a common language?
 	}
 }

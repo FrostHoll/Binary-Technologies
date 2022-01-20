@@ -1,11 +1,11 @@
-﻿using System;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.GameContent.Bestiary;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Linq;
 
 namespace BinaryTechnologies.NPCs.Town
 {
@@ -30,7 +30,6 @@ namespace BinaryTechnologies.NPCs.Town
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.knockBackResist = 0.5f;
             AnimationType = NPCID.DyeTrader;
-            NPCID.Sets.HatOffsetY[NPC.type] = 10;
         }
 
         public override void SetStaticDefaults()
@@ -43,11 +42,32 @@ namespace BinaryTechnologies.NPCs.Town
             NPCID.Sets.AttackType[NPC.type] = 3;
             NPCID.Sets.AttackTime[NPC.type] = 15;
             NPCID.Sets.AttackAverageChance[NPC.type] = 30;
+            NPCID.Sets.HatOffsetY[Type] = 4;
+
+            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                Velocity = 1f,
+                Direction = -1
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
+
+            NPC.Happiness.LikeBiome(BiomeID.NormalUnderground); 
+            NPC.Happiness.DislikeBiome(BiomeID.Ocean); 
+            NPC.Happiness.LoveBiome(BiomeID.Snow);
+            NPC.Happiness.HateBiome(BiomeID.Desert);
+
+            NPC.Happiness.HateNPC(NPCID.Demolitionist); 
+            NPC.Happiness.DislikeNPC(NPCID.Guide); 
+            NPC.Happiness.LikeNPC(NPCID.Cyborg);
+            NPC.Happiness.LoveNPC(NPCID.Steampunker);
+            NPC.Happiness.LoveNPC(NPCID.Mechanic);
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
-            bestiaryEntry.Info.Add(new SpawnConditionBestiaryInfoElement(Language.GetTextValue(BinaryTechnologies.TransPath + "Biomes.Surface"), 0, "Images/MapBG1"));
-            bestiaryEntry.Info.Add(new FlavorTextBestiaryInfoElement(Language.GetTextValue(BinaryTechnologies.TransPath + "AncestorDesc")));
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Snow,
+                new FlavorTextBestiaryInfoElement(Language.GetTextValue(BinaryTechnologies.TransPath + "Bestiary.Ancestor"))
+            });
         }
 
         public override string TownNPCName()
@@ -73,7 +93,6 @@ namespace BinaryTechnologies.NPCs.Town
             string Ancestor5 = Language.GetTextValue(BinaryTechnologies.TransPath + "Ancestor5");
             string Ancestor6 = Language.GetTextValue(BinaryTechnologies.TransPath + "Ancestor6");
             var guide = NPC.GetFirstNPCNameOrNull(NPCID.Guide);
-            //string Ancestor3 = "This guy, " + guide + ", looks familiar... I guess I saw him someday, but I can't remember where and when exactly.";
             if (guide != null && Main.rand.Next(4) == 0)
             {
                 return Ancestor3;
@@ -97,7 +116,7 @@ namespace BinaryTechnologies.NPCs.Town
 
         public override void SetChatButtons(ref string button, ref string button2)
         {
-            button = "Shop";
+            button = Language.GetTextValue("LegacyInterface.28");
         }
 
         public override void OnChatButtonClicked(bool firstButton, ref bool shop)
@@ -110,9 +129,16 @@ namespace BinaryTechnologies.NPCs.Town
 
         private bool CheckByteShard()
         {
-            foreach (Player player in Main.player)
+            for (int k = 0; k < 255; k++)
             {
-                if (player.HasItem(ModContent.ItemType<Items.ByteShard>()))
+                Player player = Main.player[k];
+                if (!player.active)
+                {
+                    continue;
+                }
+
+                // Player has to have either an ExampleItem or an ExampleBlock in order for the NPC to spawn
+                if (player.inventory.Any(item => item.type == ModContent.ItemType<Items.ByteShard>()))
                 {
                     return true;
                 }
