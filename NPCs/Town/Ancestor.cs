@@ -51,10 +51,10 @@ namespace BinaryTechnologies.NPCs.Town
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 
-            NPC.Happiness.LikeBiome(BiomeID.NormalUnderground); 
-            NPC.Happiness.DislikeBiome(BiomeID.Ocean); 
-            NPC.Happiness.LoveBiome(BiomeID.Snow);
-            NPC.Happiness.HateBiome(BiomeID.Desert);
+            NPC.Happiness.LikeBiome(PrimaryBiomeID.NormalUnderground); 
+            NPC.Happiness.DislikeBiome(PrimaryBiomeID.Ocean); 
+            NPC.Happiness.LoveBiome(PrimaryBiomeID.Snow);
+            NPC.Happiness.HateBiome(PrimaryBiomeID.Desert);
 
             NPC.Happiness.HateNPC(NPCID.Demolitionist); 
             NPC.Happiness.DislikeNPC(NPCID.Guide); 
