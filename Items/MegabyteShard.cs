@@ -13,7 +13,6 @@ namespace BinaryTechnologies.Items
         {
             DisplayName.SetDefault("Megabyte Shard");
             Tooltip.SetDefault("You can barely hold it in your hands...");
-            //ItemID.Sets.ItemIconPulse[Item.type] = true;
         }
 
         public override void SetDefaults()
@@ -30,7 +29,7 @@ namespace BinaryTechnologies.Items
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ModContent.ItemType<Items.KilobyteShard>(), 8);
             recipe.AddIngredient(ItemID.Wire, 10);
-            recipe.AddIngredient(ItemID.ChlorophyteBar, 1);
+            recipe.AddIngredient(ItemID.SpectreBar, 1);
             recipe.AddTile(ModContent.TileType<Tiles.TilePC>());
             recipe.Register();
         }

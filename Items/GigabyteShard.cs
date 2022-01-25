@@ -29,8 +29,7 @@ namespace BinaryTechnologies.Items
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ModContent.ItemType<Items.MegabyteShard>(), 8);
             recipe.AddIngredient(ItemID.Wire, 10);
-            recipe.AddIngredient(ItemID.SpectreBar, 1);
-            recipe.AddIngredient(ItemID.BeetleHusk, 1);
+            recipe.AddIngredient(ItemID.BeetleHusk, 2);
             recipe.AddTile(ModContent.TileType<Tiles.TilePC>());
             recipe.Register();
         }

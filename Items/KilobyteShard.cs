@@ -31,6 +31,9 @@ namespace BinaryTechnologies.Items
             recipe.AddIngredient(ModContent.ItemType<Items.ByteShard>(), 8);
             recipe.AddIngredient(ItemID.Wire, 10);
             recipe.AddIngredient(ItemID.HallowedBar, 1);
+            recipe.AddIngredient(ItemID.SoulofFright, 1);
+            recipe.AddIngredient(ItemID.SoulofMight, 1);
+            recipe.AddIngredient(ItemID.SoulofSight, 1);
             recipe.AddTile(ModContent.TileType<Tiles.TilePC>());
             recipe.Register();
         }

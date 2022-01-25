@@ -1,7 +1,6 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 
 namespace BinaryTechnologies.Items.Weapons
 {
@@ -36,8 +35,8 @@ namespace BinaryTechnologies.Items.Weapons
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(ItemType<BitBow>(), 1);
-			recipe.AddIngredient(ItemType<ByteShard>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<BitBow>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<ByteUpgradeModule>(), 1);
 			recipe.AddTile(ModContent.TileType<Tiles.TilePC>());
 			recipe.Register();
 		}

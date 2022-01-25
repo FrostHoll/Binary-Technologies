@@ -1,7 +1,6 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 
 namespace BinaryTechnologies.Items.Weapons
 {
@@ -27,16 +26,16 @@ namespace BinaryTechnologies.Items.Weapons
             Item.rare = ItemRarityID.Yellow;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
-            Item.shoot = ProjectileType<Projectiles.GigabyteSwordProjectile>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.GigabyteSwordProjectile>();
             Item.shootSpeed = 11f;
         }
 
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemType<Weapons.MegabyteSword>(), 1);
-            recipe.AddIngredient(ItemType<GigabyteShard>(), 1);
-            recipe.AddTile(TileType<Tiles.TilePC>());
+            recipe.AddIngredient(ModContent.ItemType<Weapons.MegabyteSword>(), 1);
+            recipe.AddIngredient(ModContent.ItemType<Items.GigabyteUpgradeModule>(), 1);
+            recipe.AddTile(ModContent.TileType<Tiles.TilePC>());
             recipe.Register();
         }
     }

@@ -1,0 +1,38 @@
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace BinaryTechnologies.Items
+{
+    class MegabyteUpgradeModule : ModItem
+    {
+
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Megabyte Upgrade Module");
+            Tooltip.SetDefault("Imbue a weapon with the power of Megabyte Shard.");
+        }
+
+        public override void SetDefaults()
+        {
+            Item.width = 12;
+            Item.height = 12;
+            Item.rare = ItemRarityID.Lime;
+            Item.value = 6000;
+            Item.maxStack = 999;
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(ModContent.ItemType<Items.BaseUpgradeModule>(), 1);
+            recipe.AddIngredient(ModContent.ItemType<Items.MegabyteShard>(), 1);
+            recipe.AddTile(ModContent.TileType<Tiles.TilePC>());
+            recipe.Register();
+        }
+
+    }
+}

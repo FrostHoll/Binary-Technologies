@@ -2,7 +2,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 
 namespace BinaryTechnologies.Items.Weapons
 {
@@ -35,8 +34,8 @@ namespace BinaryTechnologies.Items.Weapons
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemType<Items.Weapons.KilobyteSword>(), 1);
-            recipe.AddIngredient(ItemType<MegabyteShard>(), 1);
+            recipe.AddIngredient(ModContent.ItemType<Items.Weapons.KilobyteSword>(), 1);
+            recipe.AddIngredient(ModContent.ItemType<MegabyteUpgradeModule>(), 1);
             recipe.AddTile(ModContent.TileType<Tiles.TilePC>());
             recipe.Register();
         }
@@ -46,7 +45,10 @@ namespace BinaryTechnologies.Items.Weapons
             int numClouds = Main.rand.Next(3, 4);
             for (int i = 0; i < numClouds; i++)
             {
-                int spawnCloud = Main.rand.NextFromList<int>(ProjectileType<Projectiles.MegabyteCloud30>(), ProjectileType<Projectiles.MegabyteCloud32>(), ProjectileType<Projectiles.MegabyteCloud40>());
+                int spawnCloud = Main.rand.NextFromList<int>(
+                    ModContent.ProjectileType<Projectiles.MegabyteCloud30>(), 
+                    ModContent.ProjectileType<Projectiles.MegabyteCloud32>(), 
+                    ModContent.ProjectileType<Projectiles.MegabyteCloud40>());
                 Projectile.NewProjectile(player.GetProjectileSource_Item(Item), target.position, new Vector2(1f, 1f).RotatedByRandom(360), spawnCloud, damage / 4, knockBack, player.whoAmI);
             }
         }

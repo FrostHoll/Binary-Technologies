@@ -36,7 +36,7 @@ namespace BinaryTechnologies.Items.Tools
 		{
 			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ModContent.ItemType<Items.Tools.MegabyteMultiToolPickaxe>(), 1);
-			recipe.AddIngredient(ModContent.ItemType<Items.GigabyteShard>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<Items.GigabyteUpgradeModule>(), 1);
 			recipe.AddTile(ModContent.TileType<Tiles.TilePC>());
 			recipe.Register();
 		}

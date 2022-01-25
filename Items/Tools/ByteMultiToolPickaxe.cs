@@ -35,7 +35,7 @@ namespace BinaryTechnologies.Items.Tools
         {
 			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ModContent.ItemType<Items.Tools.BitMultiToolPickaxe>(), 1);
-			recipe.AddIngredient(ModContent.ItemType<Items.ByteShard>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<Items.ByteUpgradeModule>(), 1);
 			recipe.AddTile(ModContent.TileType<Tiles.TilePC>());
 			recipe.Register();
         }

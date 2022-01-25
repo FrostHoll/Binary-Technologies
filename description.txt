@@ -1,7 +1,12 @@
-Built for 1.4 Alpha version of tModLoader.
 
 One day a terrible catastrophe struck an unknown world. Some of the survivors escaped to our world by mysterious portals...
 You have to learn more about people and monsters from the ruined world.
 And the most interesting is that the people from the another world had had powerful technologies...
 
 Immerse yourself in the world containing incredibly powerful and complex technologies!
+
+Changelog:
+v0.1.2.1:
+ - All MultiTools redrawed
+ - All Shards redrawed
+ - Embedding tModLoader changes

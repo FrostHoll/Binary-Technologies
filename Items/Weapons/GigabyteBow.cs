@@ -3,7 +3,6 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 
 namespace BinaryTechnologies.Items.Weapons
 {
@@ -40,8 +39,8 @@ namespace BinaryTechnologies.Items.Weapons
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(ItemType<MegabyteBow>(), 1);
-			recipe.AddIngredient(ItemType<Items.GigabyteShard>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<MegabyteBow>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<Items.GigabyteUpgradeModule>(), 1);
 			recipe.AddTile(ModContent.TileType<Tiles.TilePC>());
 			recipe.Register();
 		}
