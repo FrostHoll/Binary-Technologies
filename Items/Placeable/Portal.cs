@@ -1,4 +1,6 @@
-﻿using Terraria;
+﻿using BinaryTechnologies.Tiles;
+using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -10,8 +12,9 @@ namespace BinaryTechnologies.Items.Placeable
 		{
 			DisplayName.SetDefault("Portal");
 			Tooltip.SetDefault("This mysterious portal may connect you with another world..." +
-				"\nPut a Byte Shard to activate it." +
-				"\nBreak a portal to deactivate it.");
+				"\nPut a Shard to activate it." +
+				"\nBreak a portal to deactivate it." +
+				"\nThere can't be more than one portal in the world.");
 		}
 
 		public override void SetDefaults()
@@ -30,7 +33,19 @@ namespace BinaryTechnologies.Items.Placeable
 			Item.createTile = ModContent.TileType<Tiles.TilePortal>();
 		}
 
-		public override void AddRecipes()
+        public override bool CanUseItem(Player player)
+        {
+			foreach (TileEntity te in TileEntity.ByID.Values)
+			{
+				if (te.type == ModContent.TileEntityType<TEPortal>())
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+
+        public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
 			recipe.AddRecipeGroup(RecipeGroupID.IronBar, 15);

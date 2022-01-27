@@ -23,8 +23,7 @@ namespace BinaryTechnologies
             if (BinaryTechnologies.temp.JustPressed)
             {
                 
-
-                Main.NewText(standingNearPortalState.ToString());
+                //Main.NewText(standingNearPortalState.ToString());
             }
         }
 
