@@ -1,8 +1,10 @@
-﻿using Terraria.ModLoader;
+﻿using BinaryTechnologies.Tiles;
+using Terraria.ModLoader;
 using Terraria;
 using Terraria.ID;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
+using Terraria.GameInput;
 
 namespace BinaryTechnologies
 {
@@ -14,12 +16,25 @@ namespace BinaryTechnologies
 
         public bool gigabyteBowBuff = false;
 
+        public bool standingNearPortalState = false;
+
+        public override void ProcessTriggers(TriggersSet triggersSet)
+        {
+            if (BinaryTechnologies.temp.JustPressed)
+            {
+                
+
+                Main.NewText(standingNearPortalState.ToString());
+            }
+        }
+
         public override void ResetEffects()
         {
             base.ResetEffects();
             electpwrglove = false;
             electShock = false;
             gigabyteBowBuff = false;
+            if(Main.rand.NextBool(8))standingNearPortalState = false;
         }
 
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)

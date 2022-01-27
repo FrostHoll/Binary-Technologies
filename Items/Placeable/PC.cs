@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace BinaryTechnologies.Items
+namespace BinaryTechnologies.Items.Placeable
 {
 	public class PC : ModItem
 	{

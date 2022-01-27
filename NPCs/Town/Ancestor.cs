@@ -6,6 +6,8 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Linq;
+using Terraria.DataStructures;
+using BinaryTechnologies.Tiles;
 
 namespace BinaryTechnologies.NPCs.Town
 {
@@ -127,20 +129,17 @@ namespace BinaryTechnologies.NPCs.Town
             }
         }
 
-        private bool CheckByteShard()
+        private bool CheckPortal()
         {
-            for (int k = 0; k < 255; k++)
+            foreach (TileEntity te in TileEntity.ByID.Values)
             {
-                Player player = Main.player[k];
-                if (!player.active)
+                if (te.type == ModContent.TileEntityType<TEPortal>())
                 {
-                    continue;
-                }
-
-                // Player has to have either an ExampleItem or an ExampleBlock in order for the NPC to spawn
-                if (player.inventory.Any(item => item.type == ModContent.ItemType<Items.ByteShard>()))
-                {
-                    return true;
+                    TEPortal entity = te as TEPortal;
+                    if (entity.PortalState > 0)
+                    {
+                        return true;
+                    }
                 }
             }
 
@@ -149,7 +148,7 @@ namespace BinaryTechnologies.NPCs.Town
 
         public override bool CanTownNPCSpawn(int numTownNPCs, int money)
         {
-            return (Main.hardMode && CheckByteShard());
+            return (CheckPortal());
         }
 
         public override void TownNPCAttackStrength(ref int damage, ref float knockback)

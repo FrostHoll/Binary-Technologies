@@ -64,6 +64,7 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
             bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
                 new FlavorTextBestiaryInfoElement(Language.GetTextValue(BinaryTechnologies.TransPath + "Bestiary.TechnoSphere"))
             });
         }
@@ -72,8 +73,7 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
         {
             for (int i = 0; i < 10; i++)
             {
-                int dustType = Main.rand.Next(139, 143);
-                int dustIndex = Dust.NewDust(NPC.position, NPC.width, NPC.height, dustType);
+                int dustIndex = Dust.NewDust(NPC.position, NPC.width, NPC.height, 169);
                 Dust dust = Main.dust[dustIndex];
                 dust.velocity.X = dust.velocity.X + Main.rand.Next(-50, 51) * 0.01f;
                 dust.velocity.Y = dust.velocity.Y + Main.rand.Next(-50, 51) * 0.01f;
@@ -173,7 +173,8 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
                 MovingPosX = Main.rand.NextFloat(Main.player[NPC.target].position.X - XMaxOffset, 
                     Main.player[NPC.target].position.X + XMaxOffset);
                 MovingPosY = Main.player[NPC.target].position.Y - YOffset;
-                MovingTimer = 180f;
+                if (!SecondPhase) MovingTimer = 180f;
+                else MovingTimer = 60f;
                 //Main.NewText(MovingPosX + " " + MovingPosY);
             }
             targetPos = new Vector2(MovingPosX, MovingPosY);
@@ -194,7 +195,7 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
                 {
                     Vector2 projDirection = Vector2.Normalize(player.position - NPC.Center) * 8f;
                     Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), new Vector2(NPC.Center.X, NPC.Center.Y), projDirection, ProjectileID.DeathLaser, NPC.damage, 0f, Main.myPlayer);
-                    LaserTimer = 120f;
+                    LaserTimer = Main.expertMode ? 45f : (Main.masterMode ? 30f : 60f);
                     NPC.netUpdate = true;
                 }
                 else
@@ -202,6 +203,15 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
                     LaserTimer--;
                 }
             }
+        }
+
+        private void Rotate()
+        {
+            if (SecondPhase)
+            {
+                NPC.rotation -= MathHelper.ToRadians(4f);
+            }
+            else NPC.rotation -= MathHelper.ToRadians(2f);
         }
 
         public override void AI()
@@ -212,6 +222,8 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
             }
 
             Player player = Main.player[NPC.target];
+
+            Rotate();
 
             if (player.dead)
             {

@@ -60,6 +60,14 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
             NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
         }
 
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
+                new FlavorTextBestiaryInfoElement(Language.GetTextValue(BinaryTechnologies.TransPath + "Bestiary.TechnoSphereShield"))
+            });
+        }
+
         private int i = 0;
         public Vector2 radius = new Vector2(100f, 0f);
 
