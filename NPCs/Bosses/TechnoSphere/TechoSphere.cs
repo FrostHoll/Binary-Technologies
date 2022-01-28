@@ -17,7 +17,7 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Techno Sphere");
-            Main.npcFrameCount[NPC.type] = 1;
+            Main.npcFrameCount[NPC.type] = 12;
 
             NPCID.Sets.MPAllowedEnemies[Type] = true;
             NPCID.Sets.BossBestiaryPriority.Add(Type);
@@ -35,14 +35,14 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
 
         public override string Texture => "BinaryTechnologies/NPCs/Bosses/TechnoSphere/SphereCore";
 
-        public override string BossHeadTexture => "BinaryTechnologies/NPCs/Bosses/TechnoSphere/SphereCore";
+        public override string BossHeadTexture => "BinaryTechnologies/NPCs/Bosses/TechnoSphere/SphereCore_Head";
 
         public override void SetDefaults()
         {
             NPC.width = 64;
             NPC.height = 64;
             NPC.damage = 30;
-            NPC.defense = 20;
+            NPC.defense = 9999;
             NPC.lifeMax = 2200;
             NPC.HitSound = SoundID.NPCHit4;
             NPC.DeathSound = SoundID.NPCDeath14;
@@ -54,11 +54,7 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
             NPC.npcSlots = 10f;
             NPC.aiStyle = -1;
             NPC.scale = 1.5f;
-
-            //AIType = NPCID.EyeofCthulhu;
-            //AnimationType = NPCID.Zombie;
-            //Banner = Item.NPCtoBanner(NPCID.Zombie);
-            //BannerItem = Item.BannerToItem(Banner);
+            BossBag = ModContent.ItemType<Items.TechnoSphereBag>();
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -194,7 +190,10 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
                 if (LaserTimer <= 0f)
                 {
                     Vector2 projDirection = Vector2.Normalize(player.position - NPC.Center) * 8f;
-                    Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), new Vector2(NPC.Center.X, NPC.Center.Y), projDirection, ProjectileID.DeathLaser, NPC.damage, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), 
+                        new Vector2(NPC.Center.X, NPC.Center.Y), 
+                        projDirection, ProjectileID.DeathLaser, 
+                        NPC.damage / 4, 0f, Main.myPlayer);
                     LaserTimer = Main.expertMode ? 45f : (Main.masterMode ? 30f : 60f);
                     NPC.netUpdate = true;
                 }
@@ -214,6 +213,26 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
             else NPC.rotation -= MathHelper.ToRadians(2f);
         }
 
+        public override void FindFrame(int frameHeight)
+        {
+            NPC.frameCounter += 0.5f;
+            float frameSpeed = 3;
+
+            int startFrame = 0;
+            int finalFrame = 11;
+
+            if (NPC.frameCounter > frameSpeed)
+            {
+                NPC.frameCounter = 0;
+                NPC.frame.Y += frameHeight;
+
+                if (NPC.frame.Y > finalFrame * frameHeight)
+                {
+                    NPC.frame.Y = startFrame * frameHeight;
+                }
+            }
+        }
+
         public override void AI()
         {
             if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead || !Main.player[NPC.target].active)
@@ -223,11 +242,14 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
 
             Player player = Main.player[NPC.target];
 
+            if (Main.rand.NextBool(5)) Dust.NewDust(NPC.position, NPC.Hitbox.Width, NPC.Hitbox.Height, 131, 0f, 0f, 255, new Color(177, 255, 0), 0.8f);
+
             Rotate();
 
             if (player.dead)
             {
                 NPC.velocity.Y -= 0.04f;
+                NPC.velocity.X = 0f;
                 NPC.EncourageDespawn(10);
                 return;
             }
@@ -236,11 +258,12 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
             {
                 SecondPhase = true;
                 speed /= 2;
+                NPC.defense = 20;
             }
 
             SpawnShields();
 
-            NPC.dontTakeDamage = !SecondPhase;
+            //NPC.dontTakeDamage = !SecondPhase;
 
             MovingAround();
 
@@ -264,6 +287,10 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.ElectMaterial>(), 3, 1, 1));
+            npcLoot.Add(ItemDropRule.BossBag(BossBag));
+
+            npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<Items.Placeable.TechnoSphereRelic>()));
+            //npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<MinionBossPetItem>(), 4));
         }
     }
 }

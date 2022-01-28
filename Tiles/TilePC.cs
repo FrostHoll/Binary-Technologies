@@ -19,6 +19,7 @@ namespace BinaryTechnologies.Tiles
 			TileObjectData.newTile.CoordinateHeights = new[] { 16, 16, 16, 16 };
 			TileObjectData.addTile(Type);
 			ModTranslation name = CreateMapEntryName();
+			name.SetDefault("PC");
 			AddMapEntry(new Color(200, 200, 200), name);
 			DustType = DustID.Stone;
 		}

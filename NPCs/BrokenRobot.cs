@@ -103,7 +103,7 @@ namespace BinaryTechnologies.NPCs
             if (NPC.localAI[AI_LASER_TIMER] <= 0f)
             {
                 Vector2 projDirection = Vector2.Normalize(player.position - NPC.Top) * 8f;
-                int proj = Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), new Vector2(NPC.Top.X, NPC.Top.Y + 15f), projDirection, ProjectileID.DeathLaser, NPC.damage / 2, 0f, Main.myPlayer);
+                int proj = Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), new Vector2(NPC.Top.X, NPC.Top.Y + 15f), projDirection, ProjectileID.DeathLaser, NPC.damage / 8, 0f, Main.myPlayer);
                 NPC.localAI[AI_LASER_TIMER] = 120f;
                 NPC.netUpdate = true;
             }
@@ -117,7 +117,7 @@ namespace BinaryTechnologies.NPCs
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.ElectMaterial>(), 3, 1, 1));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.ElectMaterial>(), 3, 1, 2));
         }
     }
 }

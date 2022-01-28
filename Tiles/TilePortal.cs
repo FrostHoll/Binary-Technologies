@@ -6,7 +6,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
-using BinaryTechnologies.NPCs;
 
 namespace BinaryTechnologies.Tiles
 {
@@ -98,6 +97,7 @@ namespace BinaryTechnologies.Tiles
             TileObjectData.addTile(Type);
             AnimationFrameHeight = 180;
             ModTranslation name = CreateMapEntryName();
+            name.SetDefault("Portal");
             AddMapEntry(new Color(200, 200, 200), name);
             DustType = DustID.Stone;
         }
@@ -149,11 +149,11 @@ namespace BinaryTechnologies.Tiles
 
             if (_portalState == 1)
             {
-                if (++frameCounter >= 9)
+                if (++frameCounter >= 18)
                 {
                     frameCounter = 0;
 
-                    if (++frame > 2) frame = 1;
+                    if (++frame > 3) frame = 1;
                 }
             }
             
@@ -207,16 +207,11 @@ namespace BinaryTechnologies.Tiles
             TEPortal entity = GetPortalEntity(i, j);
             if (entity.PortalState > 0)
             {
-                int shard;
-                switch (entity.PortalState)
+                int shard = entity.PortalState switch
                 {
-                    case 1:
-                        shard = ModContent.ItemType<Items.ByteShard>();
-                        break;
-                    default:
-                        shard = ModContent.ItemType<Items.ByteShard>();
-                        break;
-                }
+                    1 => ModContent.ItemType<Items.ByteShard>(),
+                    _ => ModContent.ItemType<Items.ByteShard>(),
+                };
                 Item.NewItem(i * 16, j * 16, 32, 16, shard);
             }
             ModContent.GetInstance<TEPortal>().Kill(i, j);

@@ -9,7 +9,7 @@ Mods: {
 
 		MapObject: {
 			TilePC: PC
-			Portal: Portal
+			TilePortal: Portal
 		}
 
 		TownNPCMood: {

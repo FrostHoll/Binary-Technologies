@@ -48,7 +48,10 @@ namespace BinaryTechnologies.Items.Placeable
         public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
-			recipe.AddRecipeGroup(RecipeGroupID.IronBar, 15);
+			recipe.AddIngredient(ItemID.MarbleBlock, 30);
+			recipe.AddIngredient(ModContent.ItemType<Items.BitShard>(), 4);
+			recipe.AddIngredient(ModContent.ItemType<Items.ElectMaterial>(), 4);
+			recipe.AddIngredient(ModContent.ItemType<Items.EnergyCore>(), 1);
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.Register();
 		}

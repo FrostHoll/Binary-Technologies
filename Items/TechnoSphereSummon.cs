@@ -61,8 +61,9 @@ namespace BinaryTechnologies.Items
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.Wire, 10);
-            recipe.AddRecipeGroup("IronBar", 1);
+            recipe.AddIngredient(ItemID.Wire, 20);
+            recipe.AddRecipeGroup("IronBar", 3);
+            recipe.AddIngredient(ItemID.Emerald, 1);
             recipe.AddTile(ModContent.TileType<Tiles.TilePC>());
             recipe.Register();
         }
