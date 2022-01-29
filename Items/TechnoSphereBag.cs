@@ -40,12 +40,9 @@ namespace BinaryTechnologies.Items
 
         public override void OpenBossBag(Player player)
         {
-            //if (Main.rand.NextBool(7))
-            //{
-            //    player.QuickSpawnItem(ModContent.ItemType<MinionBossMask>());
-            //}
-
-            //player.QuickSpawnItem(ModContent.ItemType<ExampleItem>(), Main.rand.Next(12, 16));
+            player.QuickSpawnItem(ModContent.ItemType<Items.ElectMaterial>(), Main.rand.Next(0, 3));
+            player.QuickSpawnItem(ModContent.ItemType<Items.Accessories.SniperPack>(), 1);
+            player.QuickSpawnItem(ModContent.ItemType<Items.ByteShard>(), Main.rand.Next(4, 9));
         }
 
         public override Color? GetAlpha(Color lightColor)

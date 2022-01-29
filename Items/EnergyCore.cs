@@ -15,8 +15,6 @@ namespace BinaryTechnologies.Items
             Tooltip.SetDefault("It contains powerful energy from another world.");
         }
 
-        public override string Texture => "BinaryTechnologies/Items/TerrabyteShard";
-
         public override void SetDefaults()
         {
             Item.width = 12;

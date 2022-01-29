@@ -3,6 +3,7 @@ using System.IO;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Audio;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
@@ -120,23 +121,23 @@ namespace BinaryTechnologies.Tiles
             int index = ModContent.GetInstance<TEPortal>().Find(left, top);
             if (index == -1)
             {
-                Main.NewText("Portal Entity not found");
+                Main.NewText("Binary Technologies Error: Portal Entity not found", Color.Red);
                 throw new System.Exception("Portal Entity not found");
             }
             return (TEPortal)ModTileEntity.ByID[index];
         }
 
-        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
-        {
-            Tile tile = Main.tile[i, j];
-            if (tile.frameX / AnimationFrameHeight > 0)
-            {
+        //public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
+        //{
+        //    Tile tile = Main.tile[i, j];
+        //    if (tile.frameX / AnimationFrameHeight > 0)
+        //    {
                 
-                r = 1f;
-                g = 1f;
-                b = 1f;
-            }
-        }
+        //        r = 1f;
+        //        g = 1f;
+        //        b = 1f;
+        //    }
+        //}
 
         public override void AnimateTile(ref int frame, ref int frameCounter)
         {
@@ -149,6 +150,8 @@ namespace BinaryTechnologies.Tiles
 
             if (_portalState == 1)
             {
+                if(frame < 1 || frame > 3) frame = 1;
+
                 if (++frameCounter >= 18)
                 {
                     frameCounter = 0;
@@ -167,34 +170,28 @@ namespace BinaryTechnologies.Tiles
             int byteShard = ModContent.ItemType<Items.ByteShard>();
             if (entity.PortalState == 0 && player.ConsumeItem(byteShard))
             {
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.MaxMana, i * 16, j * 16);
+                for (int k = 0; k < 50; k++)
+                {
+                    Tile tile = Main.tile[i, j];
+                    int left = i - tile.frameX / 18;
+                    int top = j - tile.frameY % AnimationFrameHeight / 18;
+                    int dustIndex = Dust.NewDust(new Vector2(left * 16, top * 16), 96, 160, 298, 0f, 0f, 255, default(Color), 1f);
+                    Main.dust[dustIndex].velocity *= 1.4f;
+                }
                 entity.PortalState = 1;
                 entity.stateChanged = true;
-                Main.NewText("Portal was activated by Byte Shard!");
-            }
-            else
-            {
-                switch (entity.PortalState)
-                {
-                    case 0:
-                        Main.NewText("Portal is not active.");
-                        break;
-                    case 1:
-                        Main.NewText("Portal was activated by Byte Shard.");
-                        break;
-                    default:
-                        Main.NewText("Something went wrong");
-                        break;
-                }
+                //Main.NewText("Portal was activated by Byte Shard!");
             }
             return true;
         }
 
-        public override void MouseOver(int i, int j)
-        {
-            Player player = Main.LocalPlayer;
-            player.cursorItemIconID = ModContent.ItemType<Items.ByteShard>();
-            player.cursorItemIconText = "";
-        }
+        //public override void MouseOver(int i, int j)
+        //{
+        //    Player player = Main.LocalPlayer;
+        //    player.cursorItemIconID = ModContent.ItemType<Items.ByteShard>();
+        //    player.cursorItemIconText = "";
+        //}
 
         public override void NumDust(int i, int j, bool fail, ref int num)
         {
@@ -203,7 +200,7 @@ namespace BinaryTechnologies.Tiles
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 32, 16, ModContent.ItemType<Items.Placeable.Portal>());
+            Item.NewItem(i * 16, j * 16, 96, 160, ModContent.ItemType<Items.Placeable.Portal>());
             TEPortal entity = GetPortalEntity(i, j);
             if (entity.PortalState > 0)
             {
@@ -212,9 +209,10 @@ namespace BinaryTechnologies.Tiles
                     1 => ModContent.ItemType<Items.ByteShard>(),
                     _ => ModContent.ItemType<Items.ByteShard>(),
                 };
-                Item.NewItem(i * 16, j * 16, 32, 16, shard);
+                Item.NewItem(i * 16, j * 16, 96, 160, shard);
             }
             ModContent.GetInstance<TEPortal>().Kill(i, j);
+            _portalState = 0;
         }
     }
 }

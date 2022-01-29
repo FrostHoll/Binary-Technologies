@@ -8,6 +8,7 @@ using Terraria.Localization;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 using System;
+using Terraria.Audio;
 
 namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
 {
@@ -42,11 +43,11 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
             NPC.width = 64;
             NPC.height = 64;
             NPC.damage = 30;
-            NPC.defense = 9999;
+            NPC.defense = 20;
             NPC.lifeMax = 2200;
             NPC.HitSound = SoundID.NPCHit4;
             NPC.DeathSound = SoundID.NPCDeath14;
-            NPC.value = Item.buyPrice(gold: 1);
+            NPC.value = Item.buyPrice(gold: 5);
             NPC.knockBackResist = 0f;
             NPC.boss = true;
             NPC.noGravity = true;
@@ -71,8 +72,8 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
             {
                 int dustIndex = Dust.NewDust(NPC.position, NPC.width, NPC.height, 169);
                 Dust dust = Main.dust[dustIndex];
-                dust.velocity.X = dust.velocity.X + Main.rand.Next(-50, 51) * 0.01f;
-                dust.velocity.Y = dust.velocity.Y + Main.rand.Next(-50, 51) * 0.01f;
+                dust.velocity.X += Main.rand.Next(-50, 51) * 0.01f;
+                dust.velocity.Y += Main.rand.Next(-50, 51) * 0.01f;
                 dust.scale *= 1f + Main.rand.Next(-30, 31) * 0.01f;
             }
         }
@@ -254,9 +255,15 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
                 return;
             }
 
+            if (!SecondPhase)
+            {
+                NPC.defense = 9999;
+            }
+
             if (ShieldLeft == 0 && MovingPosX != 0f && !SecondPhase)
             {
                 SecondPhase = true;
+                SoundEngine.PlaySound(SoundID.Roar, NPC.position, 0);
                 speed /= 2;
                 NPC.defense = 20;
             }
@@ -286,11 +293,13 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.ElectMaterial>(), 3, 1, 1));
+            LeadingConditionRule nonExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
+            nonExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.ElectMaterial>(), 3, 1, 1));
+            nonExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.ByteShard>(), 1, 2, 4));
             npcLoot.Add(ItemDropRule.BossBag(BossBag));
-
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<Items.Placeable.TechnoSphereRelic>()));
             //npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<MinionBossPetItem>(), 4));
+            npcLoot.Add(nonExpertRule);
         }
     }
 }

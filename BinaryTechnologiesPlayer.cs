@@ -11,6 +11,7 @@ namespace BinaryTechnologies
     public class BinaryTechnologiesPlayer : ModPlayer
     {
         public bool electpwrglove = false;
+        public bool sniperPack = false;
 
         public bool electShock = false;
 
@@ -31,6 +32,7 @@ namespace BinaryTechnologies
         {
             base.ResetEffects();
             electpwrglove = false;
+            sniperPack = false;
             electShock = false;
             gigabyteBowBuff = false;
             if(Main.rand.NextBool(8))standingNearPortalState = false;
@@ -45,7 +47,7 @@ namespace BinaryTechnologies
                     target.AddBuff(ModContent.BuffType<Buffs.ElectShock>(), 120);
                 }
             }
-
+            
             
 
             base.OnHitNPC(item, target, damage, knockback, crit);
@@ -58,6 +60,13 @@ namespace BinaryTechnologies
                 if (Main.rand.NextBool(2))
                 {
                     target.AddBuff(ModContent.BuffType<Buffs.ElectShock>(), 120);
+                }
+            }
+            if (sniperPack && proj.DamageType == DamageClass.Ranged)
+            {
+                if (Main.rand.Next(1, 11) == 1)
+                {
+                    target.AddBuff(BuffID.Confused, 180);
                 }
             }
             base.OnHitNPCWithProj(proj, target, damage, knockback, crit);
