@@ -6,6 +6,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Localization;
 using Microsoft.Xna.Framework;
+using Terraria.Audio;
 
 namespace BinaryTechnologies.NPCs
 {
@@ -63,6 +64,43 @@ namespace BinaryTechnologies.NPCs
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.EnergyCore>(), 8, 1, 1));
+        }
+
+        public float ShootTimer
+        {
+            get => NPC.localAI[0];
+            set => NPC.localAI[0] = value;
+        }
+
+        private static float shootingRange = 150f;
+
+        public override bool PreAI()
+        {
+            if (NPC.HasPlayerTarget)
+            {
+                Vector2 toPlayer = Main.player[NPC.target].position - NPC.position;
+                float distance = toPlayer.Length();
+                if (distance < shootingRange)
+                {
+                    ShootTimer--;
+
+                    if (ShootTimer < 0f)
+                    {
+                        for (int i = 0; i < 5; i++)
+                        {
+                            SoundEngine.PlaySound(SoundID.Item17, NPC.position);
+                            Vector2 projVector = -Vector2.UnitY * 4f;
+                            projVector = projVector.RotatedBy(MathHelper.ToRadians(Main.rand.NextFloat(-15f, 15f)));
+                            Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), NPC.Top, projVector, ModContent.ProjectileType<Projectiles.SlimeProjectile>(), NPC.damage / 2, 0.5f, Main.myPlayer);
+                        }                        
+                        ShootTimer = 120f;
+                    }
+                    NPC.velocity.X = 0f;
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

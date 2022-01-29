@@ -298,7 +298,7 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
             nonExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.ByteShard>(), 1, 2, 4));
             npcLoot.Add(ItemDropRule.BossBag(BossBag));
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<Items.Placeable.TechnoSphereRelic>()));
-            //npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<MinionBossPetItem>(), 4));
+            npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<Pets.TechnoSpherePet.TechnoSpherePetItem>(), 4));
             npcLoot.Add(nonExpertRule);
         }
     }
