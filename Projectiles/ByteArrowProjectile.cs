@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace BinaryTechnologies.Projectiles
 {
-    public class BitArrowProjectile : ModProjectile
+    public class ByteArrowProjectile : ModProjectile
     {
         public override void SetStaticDefaults()
         {

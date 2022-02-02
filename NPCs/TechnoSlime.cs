@@ -86,14 +86,18 @@ namespace BinaryTechnologies.NPCs
 
                     if (ShootTimer < 0f)
                     {
-                        for (int i = 0; i < 5; i++)
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            SoundEngine.PlaySound(SoundID.Item17, NPC.position);
-                            Vector2 projVector = -Vector2.UnitY * 4f;
-                            projVector = projVector.RotatedBy(MathHelper.ToRadians(Main.rand.NextFloat(-15f, 15f)));
-                            Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), NPC.Top, projVector, ModContent.ProjectileType<Projectiles.SlimeProjectile>(), NPC.damage / 2, 0.5f, Main.myPlayer);
-                        }                        
-                        ShootTimer = 120f;
+                            for (int i = 0; i < 5; i++)
+                            {
+                                SoundEngine.PlaySound(SoundID.Item17, NPC.position);
+                                Vector2 projVector = -Vector2.UnitY * 4f;
+                                projVector = projVector.RotatedBy(MathHelper.ToRadians(Main.rand.NextFloat(-15f, 15f)));
+                                Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), NPC.Top, projVector, ModContent.ProjectileType<Projectiles.SlimeProjectile>(), NPC.damage / 2, 0.5f, Main.myPlayer);
+                            }
+                            ShootTimer = 120f;
+                            NPC.netUpdate = true;
+                        }
                     }
                     NPC.velocity.X = 0f;
                     return false;

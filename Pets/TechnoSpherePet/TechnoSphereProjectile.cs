@@ -28,12 +28,12 @@ namespace BinaryTechnologies.Pets.TechnoSpherePet
 
             player.zephyrfish = false;
 
-            if (Projectile.localAI[0] == 0)
-            {
-                Projectile.localAI[0] = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),
-                Projectile.position, Vector2.Zero, ModContent.ProjectileType<TechnoSphereProjectile1>(),
-                0, 0f, Main.myPlayer, Projectile.whoAmI);
-            }
+            //if (Projectile.localAI[0] == 0)
+            //{
+            //    Projectile.localAI[0] = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),
+            //    Projectile.position, Vector2.Zero, ModContent.ProjectileType<TechnoSphereProjectile1>(),
+            //    0, 0f, Main.myPlayer, Projectile.whoAmI);
+            //}
 
 
             return true;

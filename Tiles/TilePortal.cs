@@ -68,11 +68,11 @@ namespace BinaryTechnologies.Tiles
 
         public override int Hook_AfterPlacement(int i, int j, int type, int style, int direction, int alternate)
         {
+            Main.NewText("i " + i + " j " + j + " t " + type + " s " + style + " d " + direction);
             if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 NetMessage.SendTileSquare(Main.myPlayer, i, j, 3);
                 NetMessage.SendData(MessageID.TileEntityPlacement, -1, -1, null, i, j, Type, 0f, 0, 0, 0);
-                //maybe add SendData NPCSync?
                 return -1;
             }
             return Place(i, j);
@@ -107,10 +107,15 @@ namespace BinaryTechnologies.Tiles
 
         public override void NearbyEffects(int i, int j, bool closer)
         {
-            //Main.NewText("in range");
-            TEPortal entity = GetPortalEntity(i, j);
-            _portalState = entity.PortalState;
-            Main.LocalPlayer.GetModPlayer<BinaryTechnologiesPlayer>().standingNearPortalState = entity.PortalState != 0;
+            //Main.NewText(i + " " + j);
+
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                TEPortal entity = GetPortalEntity(i, j);
+                _portalState = entity.PortalState;
+                Main.LocalPlayer.GetModPlayer<BinaryTechnologiesPlayer>().standingNearPortalState = entity.PortalState != 0;
+            }
+            
         }
 
         private TEPortal GetPortalEntity(int i, int j)
@@ -122,7 +127,8 @@ namespace BinaryTechnologies.Tiles
             if (index == -1)
             {
                 Main.NewText("Binary Technologies Error: Portal Entity not found", Color.Red);
-                throw new System.Exception("Portal Entity not found");
+                //throw new System.Exception("Portal Entity not found");
+                return null;
             }
             return (TEPortal)ModTileEntity.ByID[index];
         }

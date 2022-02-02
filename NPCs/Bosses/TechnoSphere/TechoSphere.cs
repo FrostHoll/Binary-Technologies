@@ -29,7 +29,7 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
                     BuffID.Poisoned,
 
                     BuffID.Confused
-				}
+                }
             };
             NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
         }
@@ -68,6 +68,11 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
 
         public override void HitEffect(int hitDirection, double damage)
         {
+            if (Main.netMode == NetmodeID.Server)
+            {
+                return;
+            }
+
             for (int i = 0; i < 10; i++)
             {
                 int dustIndex = Dust.NewDust(NPC.position, NPC.width, NPC.height, 169);
@@ -80,7 +85,7 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            
+
         }
 
         public bool SecondPhase
@@ -91,8 +96,8 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
 
         public int ShieldLeft
         {
-            get => (int)NPC.localAI[0];
-            set => NPC.localAI[0] = value;
+            get => (int)NPC.ai[3];
+            set => NPC.ai[3] = value;
         }
 
         public float MovingPosX
@@ -109,8 +114,8 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
 
         public float MovingTimer
         {
-            get => NPC.ai[3];
-            set => NPC.ai[3] = value;
+            get => NPC.localAI[3];
+            set => NPC.localAI[3] = value;
         }
 
         public float LaserTimer
@@ -118,6 +123,18 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
             get => NPC.localAI[1];
             set => NPC.localAI[1] = value;
         }
+
+        public Vector2 Destination
+        {
+            get => new Vector2(NPC.ai[1], NPC.ai[2]);
+            set
+            {
+                NPC.ai[1] = value.X;
+                NPC.ai[2] = value.Y;
+            }
+        }
+
+        public Vector2 LastDestination { get; set; } = Vector2.Zero;
 
         private float speed = 20f;
 
@@ -127,33 +144,58 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
 
             if (ShieldLeft == 0 && !SecondPhase)
             {
+                ShieldLeft = 4;
+                if (Main.netMode == NetmodeID.Server) NetMessage.SendData(MessageID.SyncNPC, number: NPC.whoAmI);
+
+                if (Main.netMode == NetmodeID.MultiplayerClient)
+                {
+
+                    return;
+                }
+
+
                 int index;
                 TechnoSphereShield shield;
                 index = NPC.NewNPC((int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<NPCs.Bosses.TechnoSphere.TechnoSphereShield>(), 0, NPC.whoAmI);
                 shield = Main.npc[index].ModNPC as TechnoSphereShield;
                 if (shield != null)
                 {
-                    shield.radius = new Vector2(radius, 0f);
+                    shield.Radius = new Vector2(radius, 0f);
+                }
+                if (Main.netMode == NetmodeID.Server && index < Main.maxNPCs)
+                {
+                    NetMessage.SendData(MessageID.SyncNPC, number: index);
                 }
                 index = NPC.NewNPC((int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<NPCs.Bosses.TechnoSphere.TechnoSphereShield>(), 0, NPC.whoAmI);
                 shield = Main.npc[index].ModNPC as TechnoSphereShield;
                 if (shield != null)
                 {
-                    shield.radius = new Vector2(-radius, 0f);
+                    shield.Radius = new Vector2(-radius, 0f);
+                }
+                if (Main.netMode == NetmodeID.Server && index < Main.maxNPCs)
+                {
+                    NetMessage.SendData(MessageID.SyncNPC, number: index);
                 }
                 index = NPC.NewNPC((int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<NPCs.Bosses.TechnoSphere.TechnoSphereShield>(), 0, NPC.whoAmI);
                 shield = Main.npc[index].ModNPC as TechnoSphereShield;
                 if (shield != null)
                 {
-                    shield.radius = new Vector2(0f, radius);
+                    shield.Radius = new Vector2(0f, radius);
+                }
+                if (Main.netMode == NetmodeID.Server && index < Main.maxNPCs)
+                {
+                    NetMessage.SendData(MessageID.SyncNPC, number: index);
                 }
                 index = NPC.NewNPC((int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<NPCs.Bosses.TechnoSphere.TechnoSphereShield>(), 0, NPC.whoAmI);
                 shield = Main.npc[index].ModNPC as TechnoSphereShield;
                 if (shield != null)
                 {
-                    shield.radius = new Vector2(0f, -radius);
+                    shield.Radius = new Vector2(0f, -radius);
                 }
-                ShieldLeft = 4;
+                if (Main.netMode == NetmodeID.Server && index < Main.maxNPCs)
+                {
+                    NetMessage.SendData(MessageID.SyncNPC, number: index);
+                }
             }
         }
 
@@ -161,25 +203,44 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
         {
             if (!NPC.HasValidTarget) return;
 
+
+
             MovingTimer--;
             Vector2 targetPos;
             if (MovingTimer < 0f)
             {
-                float YOffset = 200f;
-                float XMaxOffset = 300f;
-                MovingPosX = Main.rand.NextFloat(Main.player[NPC.target].position.X - XMaxOffset, 
-                    Main.player[NPC.target].position.X + XMaxOffset);
-                MovingPosY = Main.player[NPC.target].position.Y - YOffset;
-                if (!SecondPhase) MovingTimer = 180f;
-                else MovingTimer = 60f;
-                //Main.NewText(MovingPosX + " " + MovingPosY);
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    float YOffset = 200f;
+                    float XMaxOffset = 300f;
+                    MovingPosX = Main.rand.NextFloat(Main.player[NPC.target].position.X - XMaxOffset,
+                        Main.player[NPC.target].position.X + XMaxOffset);
+                    MovingPosY = Main.player[NPC.target].position.Y - YOffset;
+                    if (!SecondPhase) MovingTimer = 180f;
+                    else MovingTimer = 60f;
+                    //Main.NewText(MovingPosX + " " + MovingPosY);
+                    NPC.netUpdate = true;
+                }
             }
-            targetPos = new Vector2(MovingPosX, MovingPosY);
-            Vector2 destinationVector = targetPos - NPC.Center;
+            Vector2 destinationVector = Destination - NPC.Center;
 
             float movingSpeed = Math.Min(200f, destinationVector.Length()) / speed;
 
             NPC.velocity = destinationVector.SafeNormalize(Vector2.Zero) * movingSpeed;
+
+            if (Destination != LastDestination)
+            {
+                NPC.TargetClosest();
+                if (Main.netMode != NetmodeID.Server)
+                {
+                    NPC.position += NPC.netOffset;
+
+                    Dust.QuickDustLine(NPC.Center + destinationVector.SafeNormalize(Vector2.Zero) * NPC.width, Destination, destinationVector.Length() / 20f, Color.Yellow);
+
+                    NPC.position -= NPC.netOffset;
+                }
+            }
+            LastDestination = Destination;
         }
 
         private void ShootLaser()
@@ -190,19 +251,53 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
 
                 if (LaserTimer <= 0f)
                 {
-                    Vector2 projDirection = Vector2.Normalize(player.position - NPC.Center) * 8f;
-                    Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), 
-                        new Vector2(NPC.Center.X, NPC.Center.Y), 
-                        projDirection, ProjectileID.DeathLaser, 
-                        NPC.damage / 4, 0f, Main.myPlayer);
-                    LaserTimer = Main.expertMode ? 45f : (Main.masterMode ? 30f : 60f);
-                    NPC.netUpdate = true;
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+
+                        Vector2 projDirection = Vector2.Normalize(player.position - NPC.Center) * 8f;
+                        Projectile.NewProjectile(NPC.GetProjectileSpawnSource(),
+                            new Vector2(NPC.Center.X, NPC.Center.Y),
+                            projDirection, ProjectileID.DeathLaser,
+                            NPC.damage / 4, 0f, Main.myPlayer);
+                        LaserTimer = Main.expertMode ? 45f : (Main.masterMode ? 30f : 60f);
+                        NPC.netUpdate = true;
+                    }
                 }
                 else
                 {
                     LaserTimer--;
                 }
             }
+        }
+
+        public static int MinionType()
+        {
+            return ModContent.NPCType<NPCs.Bosses.TechnoSphere.TechnoSphereShield>();
+        }
+
+        private void CheckShields()
+        {
+            if (SecondPhase)
+            {
+                return;
+            }
+
+            float sum = 0f;
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                NPC otherNPC = Main.npc[i];
+                if (otherNPC.active && otherNPC.type == MinionType() && otherNPC.ModNPC is TechnoSphereShield minion)
+                {
+                    if (minion.ParentIndex == NPC.whoAmI)
+                    {
+                        sum++;
+                    }
+                }
+
+            }
+
+            ShieldLeft = (int)sum;
+            if (Main.netMode == NetmodeID.Server) NetMessage.SendData(MessageID.SyncNPC, number: NPC.whoAmI);
         }
 
         private void Rotate()
@@ -247,6 +342,8 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
 
             Rotate();
 
+            CheckShields();
+
             if (player.dead)
             {
                 NPC.velocity.Y -= 0.04f;
@@ -266,6 +363,7 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
                 SoundEngine.PlaySound(SoundID.Roar, NPC.position, 0);
                 speed /= 2;
                 NPC.defense = 20;
+                NPC.netUpdate = true;
             }
 
             SpawnShields();
@@ -279,9 +377,11 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
 
         public void ShieldKilled()
         {
+            Main.NewText("-1");
             ShieldLeft--;
+            if(Main.netMode == NetmodeID.Server) NetMessage.SendData(MessageID.SyncNPC, number: NPC.whoAmI);
             //Main.NewText(ShieldLeft);
-            
+
         }
 
 

@@ -68,13 +68,23 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
             });
         }
 
-        private int i = 0;
-        public Vector2 radius = new Vector2(100f, 0f);
+        //private int i = 0;
+        //public Vector2 radius = new Vector2(100f, 0f);
 
         public float LaserTimer
         {
             get => NPC.ai[1];
             set => NPC.ai[1] = value;
+        }
+
+        public Vector2 Radius
+        {
+            get => new Vector2(NPC.ai[2], NPC.ai[3]);
+            set
+            {
+                NPC.ai[2] = value.X;
+                NPC.ai[3] = value.Y;
+            }
         }
 
         public override void AI()
@@ -102,12 +112,13 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
                 return;
             }
             NPC sphere = Main.npc[ParentIndex];          
-            Vector2 dist = sphere.Center - NPC.Center;
+            Vector2 dist = sphere.Center - NPC.Center;            
             if (sphere != null)
             {
                 NPC.rotation = dist.AngleTo(new Vector2(1f, 0f)) + MathHelper.PiOver2;
-                radius = radius.RotatedBy(MathHelper.ToRadians(1f));
-                NPC.Center = sphere.Center + radius;
+                
+                Radius = Radius.RotatedBy(MathHelper.ToRadians(1f));
+                NPC.Center = sphere.Center + Radius;
             }
 
             if (LaserTimer <= 0f)
@@ -125,12 +136,14 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
 
         public override void OnKill()
         {
-            if (!HasParent) return;
-            TechnoSphere sphere = Main.npc[ParentIndex].ModNPC as TechnoSphere;
-            if (sphere != null)
-            {
-                sphere.ShieldKilled();
-            }
+            //Main.NewText(NPC.whoAmI);
+            //if (!HasParent) return;
+            //TechnoSphere sphere = Main.npc[ParentIndex].ModNPC as TechnoSphere;
+            //if (sphere != null)
+            //{
+            //    sphere.ShieldKilled();
+            //}
+            //if (Main.netMode == NetmodeID.Server) NetMessage.SendData(MessageID.SyncNPC, number: NPC.whoAmI);
         }
 
         public override void HitEffect(int hitDirection, double damage)
