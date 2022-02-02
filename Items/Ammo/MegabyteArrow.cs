@@ -8,6 +8,11 @@ namespace BinaryTechnologies.Items.Ammo
 {
     public class MegabyteArrow : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            Tooltip.SetDefault("When hits an enemy, releases a copy of itself");
+        }
+
         public override void SetDefaults()
         {
             Item.Size = new Vector2(10, 10);
