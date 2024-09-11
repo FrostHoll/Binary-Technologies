@@ -1,26 +1,23 @@
-﻿using Terraria;
+﻿using BinaryTechnologies.NPCs.Bosses.TechnoSphere;
+using BinaryTechnologies.Items.Accessories;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
+using Terraria.GameContent.ItemDropRules;
 
 namespace BinaryTechnologies.Items
 {
     public class TechnoSphereBag : ModItem
     {
-        public override int BossBagNPC => ModContent.NPCType<NPCs.Bosses.TechnoSphere.TechnoSphere>();
-
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Treasure Bag");
-            Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
-
             ItemID.Sets.BossBag[Type] = true;
             ItemID.Sets.PreHardmodeLikeBossBag[Type] = true;
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
+            Item.ResearchUnlockCount = 3;
         }
 
         public override void SetDefaults()
@@ -38,11 +35,12 @@ namespace BinaryTechnologies.Items
             return true;
         }
 
-        public override void OpenBossBag(Player player)
+        public override void ModifyItemLoot(ItemLoot itemLoot)
         {
-            player.QuickSpawnItem(ModContent.ItemType<Items.ElectMaterial>(), Main.rand.Next(0, 3));
-            player.QuickSpawnItem(ModContent.ItemType<Items.Accessories.SniperPack>(), 1);
-            player.QuickSpawnItem(ModContent.ItemType<Items.ByteShard>(), Main.rand.Next(4, 9));
+            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<ElectMaterial>(), 1, 1, 3));
+            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SniperPack>(), 1));
+            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<ByteShard>(), 1, 4, 9));
+            itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<TechnoSphere>()));
         }
 
         public override Color? GetAlpha(Color lightColor)

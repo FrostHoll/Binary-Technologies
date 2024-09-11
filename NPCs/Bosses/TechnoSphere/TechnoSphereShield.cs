@@ -1,13 +1,9 @@
-﻿using System;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.Bestiary;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.Localization;
 using Microsoft.Xna.Framework;
-using Terraria.DataStructures;
 
 namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
 {
@@ -42,22 +38,12 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shield");
             Main.npcFrameCount[Type] = 5;
 
             NPCID.Sets.DontDoHardmodeScaling[Type] = true;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
             NPCID.Sets.BossBestiaryPriority.Add(Type);
-
-            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = new int[] {
-                    BuffID.Poisoned,
-
-                    BuffID.Confused
-				}
-            };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            NPCID.Sets.ImmuneToAllBuffs[Type] = true;
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -124,7 +110,13 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
             if (LaserTimer <= 0f)
             {
                 Vector2 projDirection = Vector2.Normalize(player.position - NPC.Center) * 8f;
-                Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), new Vector2(NPC.Center.X, NPC.Center.Y), projDirection, ProjectileID.DeathLaser, NPC.damage / 4, 0f, Main.myPlayer);
+                Projectile.NewProjectile(NPC.GetSource_FromThis(), 
+                    new Vector2(NPC.Center.X, NPC.Center.Y), 
+                    projDirection, 
+                    ProjectileID.DeathLaser, 
+                    NPC.damage / 4, 
+                    0f, 
+                    Main.myPlayer);
                 LaserTimer = 120f + Main.rand.NextFloat(30f, 60f) * NPC.GetLifePercent();
                 NPC.netUpdate = true;
             }
@@ -146,7 +138,7 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
             //if (Main.netMode == NetmodeID.Server) NetMessage.SendData(MessageID.SyncNPC, number: NPC.whoAmI);
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             for (int i = 0; i < 10; i++)
             {

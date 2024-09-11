@@ -1,10 +1,375 @@
 Mods: {
 	BinaryTechnologies: {
+		Tiles: {
+			TilePC.MapEntry: PC
+			TilePortal.MapEntry: Portal
+		}
+
+		Buffs: {
+			ElectShock: {
+				DisplayName: Electrical Shock
+				Description: Greatly losing life
+			}
+
+			TechnoSpherePetBuff: {
+				DisplayName: Techno Sphere
+				Description: Is it going to defend you?
+			}
+		}
+
+		Items: {
+			BitShard: {
+				DisplayName: Bit Shard
+				Tooltip: This shard contains information of this world.
+			}
+
+			ByteShard: {
+				DisplayName: Byte Shard
+				Tooltip: Contains x8 more information than Bit Shard!
+			}
+
+			KilobyteShard: {
+				DisplayName: Kilobyte Shard
+				Tooltip: You feel that this shard is full of knowledge about this world...
+			}
+
+			MegabyteShard: {
+				DisplayName: Megabyte Shard
+				Tooltip: You can barely hold it in your hands...
+			}
+
+			GigabyteShard: {
+				DisplayName: Gigabyte Shard
+				Tooltip: The existence of this is beyond your comprehension.
+			}
+
+			TerrabyteShard: {
+				DisplayName: Terrabyte Shard
+				Tooltip: "[c/c35c16:The absolute power of the knowledge of this world.]"
+			}
+
+			BaseUpgradeModule: {
+				DisplayName: Base Upgrade Module
+				Tooltip:
+					'''
+					It is just an empty shell for powerful energy...
+					Maybe it will become more useful if you put a piece of information in it?
+					'''
+			}
+
+			ByteUpgradeModule: {
+				DisplayName: Byte Upgrade Module
+				Tooltip: Imbue a weapon with the power of Byte Shard.
+			}
+
+			KilobyteUpgradeModule: {
+				DisplayName: Kilobyte Upgrade Module
+				Tooltip: Imbue a weapon with the power of Kilobyte Shard.
+			}
+
+			MegabyteUpgradeModule: {
+				DisplayName: Megabyte Upgrade Module
+				Tooltip: Imbue a weapon with the power of Megabyte Shard.
+			}
+
+			GigabyteUpgradeModule: {
+				DisplayName: Gigabyte Upgrade Module
+				Tooltip: Imbue a weapon with the power of Gigabyte Shard.
+			}
+
+			ElectMaterial: {
+				DisplayName: Electrical Spares
+				Tooltip: At first sight it looks like a scrap.
+			}
+
+			EnergyCore: {
+				DisplayName: Energy Core
+				Tooltip: It contains powerful energy from another world.
+			}
+
+			TechnoSphereSummon: {
+				DisplayName: Suspicious Looking Transmitter
+				Tooltip:
+					'''
+					It sends signal, which cannot be recieved in this world.
+					Summons Techno Sphere, if there is Activated Portal nearby
+					'''
+			}
+
+			TechnoSpherePetItem: {
+				DisplayName: Techno Sphere Shard
+				Tooltip: Summons a mini Techno Sphere to follow aimlessly behind you
+			}
+
+			# Consumables
+			
+			TechnoSphereBag: {
+				DisplayName: Techno Sphere Bag
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			# Developers
+			
+			InfinityDirt: {
+				DisplayName: Infinite Dirt block
+				Tooltip:
+					'''
+					For you mwah~~
+					[c/33d4c6:- Developer's Item -]
+					[c/33d4c6: Good3rip]
+					'''
+			}
+
+			# Placeables
+			
+			Portal: {
+				DisplayName: Portal
+				Tooltip:
+					'''
+					This mysterious portal may connect you with another world...
+					Put a Byte Shard to activate portal
+					There can't be more than one portal in the world
+					'''
+			}
+
+			PC: {
+				DisplayName: PC
+				Tooltip: On this table you can create things filled with information.
+			}
+
+			TechnoSphereRelic: {
+				DisplayName: Techno Sphere Relic
+				Tooltip: ""
+			}
+
+			# Accessories
+			
+			ElectPwrGlove: {
+				DisplayName: Electrical Power Glove
+				Tooltip:
+					'''
+					Weird glove that helps you perfoming melee attacks.
+					8% increased melee damage
+					10% decreased movement speed
+					Melee attacks can elecrticify your enemies
+					- It's so heavy! -
+					'''
+			}
+
+			Adrenaline: {
+				DisplayName: Adrenaline Injector
+				Tooltip:
+					'''
+					A device that injects adrenaline when needed.
+					10% increased damage
+					Increases damage and movement speed by 20% when below 50% life
+					'''
+			}
+
+			SniperPack: {
+				DisplayName: Starter Sniper's Kit
+				Tooltip:
+					'''
+					8% increased ranged damage
+					4% increased ranged crit chance
+					Ranged attacks have a small chance to confuse your foe
+					'''
+			}
+
+			LifeCharm: {
+				DisplayName: Life Support Device
+				Tooltip: Greatly increased life regeneration when Activated Portal is nearby
+			}
+
+			# Ammo
+			
+			ByteArrow: {
+				DisplayName: Byte Arrow
+				Tooltip: ""
+			}
+
+			MegabyteArrow: {
+				DisplayName: Megabyte Arrow
+				Tooltip: When hits an enemy, releases a copy of itself
+			}
+
+			# Tools
+			
+			BitMultiToolHamaxe: {
+				DisplayName: Bit Multi Tool [Hamaxe]
+				Tooltip: Right click to switch to pickaxe
+			}
+
+			BitMultiToolPickaxe: {
+				DisplayName: Bit Multi Tool [Pickaxe]
+				Tooltip: Right click to switch to hamaxe
+			}
+
+			ByteMultiToolHamaxe: {
+				DisplayName: Byte Multi Tool [Hamaxe]
+				Tooltip: Right click to switch to pickaxe
+			}
+
+			ByteMultiToolPickaxe: {
+				DisplayName: Byte Multi Tool [Pickaxe]
+				Tooltip: Right click to switch to hamaxe
+			}
+
+			KilobyteMultiToolHamaxe: {
+				DisplayName: Kilobyte Multi Tool [Hamaxe]
+				Tooltip: Right click to switch to pickaxe
+			}
+
+			KilobyteMultiToolPickaxe: {
+				DisplayName: Kilobyte Multi Tool [Pickaxe]
+				Tooltip: Right click to switch to hamaxe
+			}
+
+			MegabyteMultiToolHamaxe: {
+				DisplayName: Megabyte Multi Tool [Hamaxe]
+				Tooltip: Right click to switch to pickaxe
+			}
+
+			MegabyteMultiToolPickaxe: {
+				DisplayName: Megabyte Multi Tool [Pickaxe]
+				Tooltip: Right click to switch to hamaxe
+			}
+
+			GigabyteMultiToolHamaxe: {
+				DisplayName: Gigabyte Multi Tool [Hamaxe]
+				Tooltip: Right click to switch to pickaxe
+			}
+
+			GigabyteMultiToolPickaxe: {
+				DisplayName: Gigabyte Multi Tool [Pickaxe]
+				Tooltip: Right click to switch to hamaxe
+			}
+
+			# Weapons
+			
+			BitSword: {
+				DisplayName: Bit Sword
+				Tooltip: The simpliest sword imbued with information.
+			}
+
+			ByteSword: {
+				DisplayName: Byte Sword
+				Tooltip: This is x8 times more powerful sword than Bit Sword! (nope)
+			}
+
+			KilobyteSword: {
+				DisplayName: Kilobyte Sword
+				Tooltip: You are feeling determination in your hand...
+			}
+
+			MegabyteSword: {
+				DisplayName: Megabyte Sword
+				Tooltip: On impact releases a cloud that corrodes everything in its path
+			}
+
+			GigabyteSword: {
+				DisplayName: Gigabyte Sword
+				Tooltip: The presence of this power steals your enemy's life
+			}
+
+			BitBow: {
+				DisplayName: Bit Bow
+				Tooltip: The simpliest bow of information.
+			}
+
+			ByteBow: {
+				DisplayName: Byte Bow
+				Tooltip: This is x8 times more powerful bow than Bit Bow! (nope)
+			}
+
+			KilobyteBow: {
+				DisplayName: Kilobyte Bow
+				Tooltip:
+					'''
+					These sensations are truly scary...
+					Has 33% chance not to consume ammo
+					'''
+			}
+
+			MegabyteBow: {
+				DisplayName: Megabyte Bow
+				Tooltip: Changes Wooden Arrows to Megabyte Arrows
+			}
+
+			GigabyteBow: {
+				DisplayName: Gigabyte Bow
+				Tooltip:
+					'''
+					Shoots 3 arrows at once
+					Not moving for 6 seconds putting you in rage mode, shooting one arrow per shot rapidly
+					Has 33% chance not to consume ammo
+					'''
+			}
+
+			LastHope: {
+				DisplayName: Last Hope
+				Tooltip: This sword is imbued with the mighty power of dying hope.
+			}
+		}
+
+		Projectiles: {
+			TechnoSphereProjectile.DisplayName: Techno Sphere
+			TechnoSphereProjectile1.DisplayName: Techno Sphere
+			ByteArrowProjectile.DisplayName: Byte Arrow Projectile
+			EightProjectile.DisplayName: Eight Projectile
+			GigabyteSwordProjectile.DisplayName: Gigabyte Sword Projectile
+			KilobyteSwordProjectile.DisplayName: Kilobyte Sword Projectile
+			LastHopeProjectile.DisplayName: Last Hope Projectile
+			MegabyteArrowProjectile.DisplayName: Megabyte Arrow Projectile
+			MegabyteCloud30.DisplayName: Megabyte Cloud30
+			MegabyteCloud32.DisplayName: Megabyte Cloud32
+			MegabyteCloud40.DisplayName: Megabyte Cloud40
+			MegabyteProjectile.DisplayName: Megabyte Projectile
+			MegabyteSwordProjectile.DisplayName: Megabyte Sword Projectile
+			SlimeProjectile.DisplayName: Slime Projectile
+		}
+
+		NPCs: {
+			BrokenRobot.DisplayName: Broken Robot
+			TechnoSlime.DisplayName: Broken Robot
+			TechnoSpehre.DisplayName: Techno Sphere
+
+			Ancestor: {
+				TownNPCMood: {
+					# REWORK (
+					Content: What? Ah, I'm fine. Anyway, why you're asking?
+					NoHome: Brrr, it's too cold outside. I wish there was a home with comfy fireplace...
+					LoveSpace: There is so comfy here.
+					FarFromHome: We're so far away from my home.
+					DislikeCrowded: All these people... It's so noisy here, I can't keep calm.
+					HateCrowded: All these people... It's so noisy here, I can't keep calm.
+					# REWORK )
+					LikeBiome: Why do I like {BiomeName}? It's so dark and silent here. And, of course, useful ores are here too!
+					LoveBiome: "{BiomeName} reminds me my native home."
+					DislikeBiome: No, I don't like {BiomeName}. I owe something to the Duke, so I don't want to get in his way.
+					HateBiome: Why we're here? You know for sure that I hate {BiomeName}. This damn sun! I feel like I'm melting!
+					LikeNPC: Oh yeah, {NPCName} is a good man. We usually talk about fun topics. He has really interesting view of the world.
+					LoveNPC: Listen, just between us. {NPCName} has really great taste. What does it mean? Um, well, she understands me... Anyway, enough about it.
+					DislikeNPC: Have I already told you about {NPCName}? If not, I feel very weird around him...
+					HateNPC: I hate all the loud noises caused by {NPCName} and his explosives! I just want peace and quiet.
+					# REWORK (
+					LikeNPC_Princess: I like {NPCName}.
+					Princess_LovesNPC: I like {NPCName}.
+				}
+
+				DisplayName: Ancestor
+			}
+
+			TechnoSphere.DisplayName: Techno Sphere
+			TechnoSphereShield.DisplayName: Techno Sphere Shield
+		}
+
 		Bestiary: {
 			Ancestor: He is one of the last representatives of an ancient civilization that was destroyed by the wrath of the gods. He may be strange, but can you find a common language?
 			BrokenRobot: Once upon a time the Ancient people have created these robots in order to defend from monsters, but Dark powers sent them war against their creators.
 			TechnoSphere: This mysterious mechanism seems powerful. That weapon might have been on a defensive purpose. But somehow it is our enemy now.
-			TechnoSphereShield: This might be Sphere's defense mechanism. It's made of durable unknown metal. 
+			TechnoSphereShield: This might be Sphere's defense mechanism. It's made of durable unknown metal.
+			TechnoSlime: This creature is very similar to the slimes from this world. With one big difference. Strange spikes protrude from its body. And... it can throw them.
 		}
 
 		MapObject: {
@@ -12,30 +377,17 @@ Mods: {
 			TilePortal: Portal
 		}
 
-		TownNPCMood: {
+		Dialogue: {
 			Ancestor: {
-				Content: What? Ah, I'm fine. Anyway, why you're asking?
-				NoHome: Brrr, it's too cold outside. I wish there was a home with comfy fireplace...
-				LoveSpace: There is so comfy here.
-				FarFromHome: We're so far away from my home.
-				DislikeCrowded: All these people... It's so noisy here, I can't keep calm.
-				HateCrowded: All these people... It's so noisy here, I can't keep calm.
-				LikeBiome: "Why do I like {BiomeName}? It's so dark and silent here. And, of course, useful ores are here too!"
-				LoveBiome: "{BiomeName} reminds me my native home."
-				DislikeBiome: "No, I don't like {BiomeName}. I owe something to the Duke, so I don't want to get in his way."
-				HateBiome: "Why we're here? You know for sure that I hate {BiomeName}. This damn sun! I feel like I'm melting!"
-				LikeNPC: "Oh yeah, {NPCName} is a good man. We usually talk about fun topics. He has really interesting view of the world."
-				LoveNPC: "Listen, just between us. {NPCName} has really great taste. What does it mean? Um, well, she understands me... Anyway, enough about it."
-				DislikeNPC: "Have I already told you about {NPCName}? If not, I feel very weird around him..."
-				HateNPC: "I hate all the loud noises caused by {NPCName} and his explosives! I just want peace and quiet."
+				StandardDialogue1: Unlike mine, this world looks peaceful and virgin. I really like it.
+				StandardDialogue2: I really hope, that in this world won't be that catastrophe, which killed my race...
+				StandardDialogue3: When I look at you, it seems to me that you are strong enough to solve the mystery of the disappearance of our people...
+				StandardDialogue4: What? Why do you need 8 bytes shard for a kilobyte shard and not 1024? I don't know, but what do you want it to be 1024?
+				NightDialogue: Look, the creations of my people roam the world, but instead of protection, they shoot at us. This is inconceivable!
+				GuideDialogue: This guy, Guide, looks familiar... I guess I saw him someday, but I can't remember where and when exactly.
 			}
 		}
 
-		Ancestor1: Unlike mine, this world looks peaceful and virgin. I really like it.
-		Ancestor2: I really hope, that in this world won't be that catastrophe, which killed my race...
-		Ancestor3: This guy, Guide, looks familiar... I guess I saw him someday, but I can't remember where and when exactly.
-		Ancestor4: Look, the creations of my people roam the world, but instead of protection, they shoot at us. This is inconceivable!
-		Ancestor5: When I look at you, it seems to me that you are strong enough to solve the mystery of the disappearance of our people...
-		Ancestor6: What? Why do you need 8 bytes shard for a kilobyte shard and not 1024? I don't know, but what do you want it to be 1024?
+		"Keybinds.Test Button.DisplayName": Test  Button
 	}
 }

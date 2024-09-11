@@ -6,13 +6,6 @@ namespace BinaryTechnologies.Items
 {
     class ElectMaterial : ModItem
     {
-
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Electrical spares");
-            Tooltip.SetDefault("At first sight it looks like a scrap.");
-        }
-
         public override void SetDefaults()
         {
             Item.width = 12;

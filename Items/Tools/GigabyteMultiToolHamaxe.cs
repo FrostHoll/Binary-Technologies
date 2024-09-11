@@ -9,12 +9,6 @@ namespace BinaryTechnologies.Items.Tools
 {
 	public class GigabyteMultiToolHamaxe : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Gigabyte MultiTool [Hamaxe]");
-			Tooltip.SetDefault("Right click to switch to pickaxe");
-		}
-
 		public override void SetDefaults()
 		{
 
@@ -45,7 +39,7 @@ namespace BinaryTechnologies.Items.Tools
 
         public override void RightClick(Player player)
 		{
-			int _item = player.QuickSpawnItem(ModContent.ItemType<Items.Tools.GigabyteMultiToolPickaxe>());
+			player.QuickSpawnItem(Item.GetSource_GiftOrReward(), ModContent.ItemType<GigabyteMultiToolPickaxe>());
 		}
 
 		public override bool? PrefixChance(int pre, UnifiedRandom rand) => (pre != -3 && pre != -1);

@@ -41,20 +41,31 @@ namespace BinaryTechnologies.Projectiles
             base.AI();
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int i = 0; i < 10; i++)
             {
-                int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 71, 0f, 0f, 100, default(Color), 1.2f);
+                int dustIndex = Dust.NewDust(
+                    new Vector2(Projectile.position.X, Projectile.position.Y), 
+                    Projectile.width, 
+                    Projectile.height, 
+                    71, 0f, 0f, 100, default, 1.2f);
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             float spawnRadius = 100f;
             Vector2 spawnPosition = target.position + new Vector2(spawnRadius, 0f).RotatedByRandom(360);
 
-            Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), spawnPosition, spawnPosition.DirectionTo(target.position) * 4f, ModContent.ProjectileType<Projectiles.MegabyteProjectile>(), damage, knockback, Main.LocalPlayer.whoAmI);
+            Projectile.NewProjectile(
+                Projectile.GetSource_OnHit(target), 
+                spawnPosition, 
+                spawnPosition.DirectionTo(target.position) * 4f, 
+                ModContent.ProjectileType<MegabyteProjectile>(), 
+                hit.Damage, 
+                hit.Knockback, 
+                Main.LocalPlayer.whoAmI);
         }
     }
 }

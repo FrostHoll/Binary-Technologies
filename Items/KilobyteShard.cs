@@ -8,14 +8,6 @@ namespace BinaryTechnologies.Items
 {
     class KilobyteShard : ModItem
     {
-
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Kilobyte Shard");
-            Tooltip.SetDefault("You feel that this shard is full of knowledge about this world...");
-            //ItemID.Sets.ItemIconPulse[Item.type] = true;
-        }
-
         public override void SetDefaults()
         {
             Item.width = 16;
@@ -28,7 +20,7 @@ namespace BinaryTechnologies.Items
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ModContent.ItemType<Items.ByteShard>(), 8);
+            recipe.AddIngredient(ModContent.ItemType<ByteShard>(), 8);
             recipe.AddIngredient(ItemID.Wire, 10);
             recipe.AddIngredient(ItemID.HallowedBar, 1);
             recipe.AddIngredient(ItemID.SoulofFright, 1);

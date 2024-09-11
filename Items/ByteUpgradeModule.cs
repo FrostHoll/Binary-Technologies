@@ -1,7 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.DataStructures;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -9,13 +6,6 @@ namespace BinaryTechnologies.Items
 {
     class ByteUpgradeModule : ModItem
     {
-
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Byte Upgrade Module");
-            Tooltip.SetDefault("Imbue a weapon with the power of Byte Shard.");
-        }
-
         public override void SetDefaults()
         {
             Item.width = 12;
@@ -28,8 +18,8 @@ namespace BinaryTechnologies.Items
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ModContent.ItemType<Items.BaseUpgradeModule>(), 1);
-            recipe.AddIngredient(ModContent.ItemType<Items.ByteShard>(), 1);
+            recipe.AddIngredient(ModContent.ItemType<BaseUpgradeModule>(), 1);
+            recipe.AddIngredient(ModContent.ItemType<ByteShard>(), 1);
             recipe.AddTile(ModContent.TileType<Tiles.TilePC>());
             recipe.Register();
         }

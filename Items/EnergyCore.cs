@@ -8,13 +8,6 @@ namespace BinaryTechnologies.Items
 {
     class EnergyCore : ModItem
     {
-
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Energy Core");
-            Tooltip.SetDefault("It contains powerful energy from another world.");
-        }
-
         public override void SetDefaults()
         {
             Item.width = 12;

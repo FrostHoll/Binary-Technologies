@@ -7,14 +7,6 @@ namespace BinaryTechnologies.Items.Accessories
 {
 	public class Adrenaline : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Adrenaline Injector");
-			Tooltip.SetDefault("A device that injects adrenaline as needed."
-				+ "\n10% increased damage"
-				+ "\nIncreases damage and movement speed by 20% when below 50% life");
-		}
-
 		public override void SetDefaults()
 		{
 			Item.width = 16;
@@ -23,7 +15,6 @@ namespace BinaryTechnologies.Items.Accessories
 			Item.rare = ItemRarityID.Pink;
 			Item.maxStack = 1;
 			Item.accessory = true;
-			Item.canBePlacedInVanityRegardlessOfConditions = true;
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

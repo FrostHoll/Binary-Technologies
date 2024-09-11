@@ -8,11 +8,6 @@ namespace BinaryTechnologies.Items.Weapons
 {
     public class MegabyteBow : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			Tooltip.SetDefault("Changes Wooden Arrows to Megabyte Arrows");
-		}
-
 		public override void SetDefaults()
 		{
 			Item.damage = 55;
@@ -30,7 +25,7 @@ namespace BinaryTechnologies.Items.Weapons
 			Item.useAmmo = AmmoID.Arrow;
 			Item.shoot = ProjectileID.WoodenArrowFriendly;
 			Item.shootSpeed = 9f;
-			Item.scale = 0.8f;
+			//Item.scale = 0.8f;
 			Item.noMelee = true;
 		}
 
@@ -43,18 +38,18 @@ namespace BinaryTechnologies.Items.Weapons
 			recipe.Register();
 		}
 
-		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-		{
-			int shootType = type;
-			if (type == ProjectileID.WoodenArrowFriendly)
-			{
-				shootType = ModContent.ProjectileType<Projectiles.MegabyteArrowProjectile>();
-			}
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            int shootType = type;
+            if (type == ProjectileID.WoodenArrowFriendly)
+            {
+                shootType = ModContent.ProjectileType<Projectiles.MegabyteArrowProjectile>();
+            }
 
-			Projectile.NewProjectile(source, position.X, position.Y + 15, velocity.X, velocity.Y, shootType, damage, knockback, player.whoAmI);
-			Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, shootType, damage, knockback, player.whoAmI);
-			Projectile.NewProjectile(source, position.X, position.Y - 15, velocity.X, velocity.Y, shootType, damage, knockback, player.whoAmI);
-			return false;
-		}
+            Projectile.NewProjectile(source, position.X, position.Y + 15, velocity.X, velocity.Y, shootType, damage, knockback, player.whoAmI);
+            Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, shootType, damage, knockback, player.whoAmI);
+            Projectile.NewProjectile(source, position.X, position.Y - 15, velocity.X, velocity.Y, shootType, damage, knockback, player.whoAmI);
+            return false;
+        }
 	}
 }

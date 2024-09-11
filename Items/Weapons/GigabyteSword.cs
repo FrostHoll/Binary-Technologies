@@ -6,11 +6,6 @@ namespace BinaryTechnologies.Items.Weapons
 {
     class GigabyteSword : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            Tooltip.SetDefault("The presence of this power steals your enemy's life");
-        }
-
         public override void SetDefaults()
         {
             Item.damage = 150;

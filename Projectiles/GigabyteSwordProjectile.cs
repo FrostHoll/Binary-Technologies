@@ -58,15 +58,13 @@ namespace BinaryTechnologies.Projectiles
 
         }
 
-        
-
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (target.netID == NPCID.TargetDummy) return;
-            if(Main.rand.NextBool(2)) Projectile.vampireHeal((int)(damage * 0.6f), target.position);
+            if (Main.rand.NextBool(2)) Projectile.vampireHeal((int)(damageDone * 0.6f), target.position, target);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             //Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 107, Projectile.velocity.X * 0.25f, Projectile.velocity.Y * 0.25f, 150, Color.Cyan, 1f);
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
@@ -76,6 +74,5 @@ namespace BinaryTechnologies.Projectiles
                 Main.dust[dustIndex].velocity *= 1.4f;
             }
         }
-
     }
 }

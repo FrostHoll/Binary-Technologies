@@ -5,15 +5,19 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Linq;
 using Terraria.DataStructures;
 using BinaryTechnologies.Tiles;
+using Terraria.GameContent.Personalities;
+using System.Collections.Generic;
+using Terraria.Utilities;
 
 namespace BinaryTechnologies.NPCs.Town
 {
     [AutoloadHead]
     public class Ancestor : ModNPC
     {
+        public const string ShopName = "Shop";
+
         public override string Texture => "BinaryTechnologies/NPCs/Town/Ancestor";
 
         public override string HeadTexture => "BinaryTechnologies/NPCs/Town/AncestorHead";
@@ -36,7 +40,6 @@ namespace BinaryTechnologies.NPCs.Town
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ancestor");
             Main.npcFrameCount[NPC.type] = 26;
             NPCID.Sets.ExtraFramesCount[NPC.type] = 9;
             NPCID.Sets.AttackFrameCount[NPC.type] = 4;
@@ -46,23 +49,24 @@ namespace BinaryTechnologies.NPCs.Town
             NPCID.Sets.AttackAverageChance[NPC.type] = 30;
             NPCID.Sets.HatOffsetY[Type] = 4;
 
-            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Velocity = 1f,
                 Direction = -1
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 
-            NPC.Happiness.LikeBiome(PrimaryBiomeID.NormalUnderground); 
-            NPC.Happiness.DislikeBiome(PrimaryBiomeID.Ocean); 
-            NPC.Happiness.LoveBiome(PrimaryBiomeID.Snow);
-            NPC.Happiness.HateBiome(PrimaryBiomeID.Desert);
-
-            NPC.Happiness.HateNPC(NPCID.Demolitionist); 
-            NPC.Happiness.DislikeNPC(NPCID.Guide); 
-            NPC.Happiness.LikeNPC(NPCID.Cyborg);
-            NPC.Happiness.LoveNPC(NPCID.Steampunker);
-            NPC.Happiness.LoveNPC(NPCID.Mechanic);
+            NPC.Happiness
+                .SetBiomeAffection<OceanBiome>(AffectionLevel.Dislike)
+                .SetBiomeAffection<SnowBiome>(AffectionLevel.Love)
+                .SetBiomeAffection<DesertBiome>(AffectionLevel.Hate)
+                .SetBiomeAffection<UndergroundBiome>(AffectionLevel.Like)
+                .SetNPCAffection(NPCID.Demolitionist, AffectionLevel.Hate)
+                .SetNPCAffection(NPCID.Guide, AffectionLevel.Dislike)
+                .SetNPCAffection(NPCID.Cyborg, AffectionLevel.Like)
+                .SetNPCAffection(NPCID.Steampunker, AffectionLevel.Love)
+                .SetNPCAffection(NPCID.Mechanic, AffectionLevel.Love)
+            ;
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
@@ -72,48 +76,37 @@ namespace BinaryTechnologies.NPCs.Town
             });
         }
 
-        public override string TownNPCName()
+        public override List<string> SetNPCNameList()
         {
-            switch (WorldGen.genRand.Next(0, 2))
+            return new List<string>()
             {
-                case 0:
-                    return "Oleg";
-                case 1:
-                    return "Arthur";
-                default:
-                    return "Robert";
-            }
+                "Oleg",
+                "Arthur",
+                "Robert"
+            };
         }
 
         public override string GetChat()
         {
-            
-            string Ancestor1 = Language.GetTextValue(BinaryTechnologies.TransPath + "Ancestor1");
-            string Ancestor2 = Language.GetTextValue(BinaryTechnologies.TransPath + "Ancestor2");
-            string Ancestor3 = Language.GetTextValue(BinaryTechnologies.TransPath + "Ancestor3");
-            string Ancestor4 = Language.GetTextValue(BinaryTechnologies.TransPath + "Ancestor4");
-            string Ancestor5 = Language.GetTextValue(BinaryTechnologies.TransPath + "Ancestor5");
-            string Ancestor6 = Language.GetTextValue(BinaryTechnologies.TransPath + "Ancestor6");
+            WeightedRandom<string> chat = new WeightedRandom<string>();
+
+            chat.Add(Language.GetTextValue(BinaryTechnologies.TransPath + "StandardDialogue1"));
+            chat.Add(Language.GetTextValue(BinaryTechnologies.TransPath + "StandardDialogue2"));
+            chat.Add(Language.GetTextValue(BinaryTechnologies.TransPath + "StandardDialogue3"));
+            chat.Add(Language.GetTextValue(BinaryTechnologies.TransPath + "StandardDialogue4"));
+
             var guide = NPC.GetFirstNPCNameOrNull(NPCID.Guide);
-            if (guide != null && Main.rand.Next(4) == 0)
+            if (guide != null)
             {
-                return Ancestor3;
+                chat.Add(Language.GetTextValue(BinaryTechnologies.TransPath + "GuideDialogue"));
             }
-            if (!Main.dayTime && Main.rand.Next(3) == 0)
+
+            if (!Main.dayTime)
             {
-                return Ancestor4;
+                chat.Add(Language.GetTextValue(BinaryTechnologies.TransPath + "NightDialogue"));
             }
-            switch (Main.rand.Next(4))
-            {
-                case 0:
-                    return Ancestor1;
-                case 1:
-                    return Ancestor5;
-                case 2:
-                    return Ancestor6;
-                default:
-                    return Ancestor2;
-            }
+
+            return chat;
         }
 
         public override void SetChatButtons(ref string button, ref string button2)
@@ -121,11 +114,11 @@ namespace BinaryTechnologies.NPCs.Town
             button = Language.GetTextValue("LegacyInterface.28");
         }
 
-        public override void OnChatButtonClicked(bool firstButton, ref bool shop)
+        public override void OnChatButtonClicked(bool firstButton, ref string shop)
         {
             if (firstButton)
             {
-                shop = true;
+                shop = ShopName;
             }
         }
 
@@ -146,7 +139,7 @@ namespace BinaryTechnologies.NPCs.Town
             return false;
         }
 
-        public override bool CanTownNPCSpawn(int numTownNPCs, int money)
+        public override bool CanTownNPCSpawn(int numTownNPCs)
         {
             return (CheckPortal());
         }
@@ -169,7 +162,7 @@ namespace BinaryTechnologies.NPCs.Town
             itemHeight = 32;
         }
 
-        public override void DrawTownAttackSwing(ref Texture2D item, ref int itemSize, ref float scale, ref Vector2 offset)
+        public override void DrawTownAttackSwing(ref Texture2D item, ref Rectangle itemFrame, ref int itemSize, ref float scale, ref Vector2 offset)
         {
             item = ModContent.Request<Texture2D>("BinaryTechnologies/Items/Weapons/BitSword").Value;
             itemSize = 32;
@@ -179,7 +172,20 @@ namespace BinaryTechnologies.NPCs.Town
             else offset = Vector2.Zero;
         }
 
-        public override void SetupShop(Chest shop, ref int nextSlot)
+        public override void AddShops()
+        {
+            var npcShop = new NPCShop(Type, ShopName)
+                .Add<Items.BitShard>()
+                .Add<Items.ByteShard>()
+                .Add<Items.KilobyteShard>(Condition.DownedMechBossAny)
+                .Add<Items.MegabyteShard>(Condition.DownedMechBossAll)
+                .Add<Items.GigabyteShard>(Condition.DownedPlantera)
+            ;
+
+            npcShop.Register();
+        }
+
+        public override void ModifyActiveShop(string shopName, Item[] items)
         {
             int sale = 2;
             if (NPC.downedMechBossAny) sale++;
@@ -187,33 +193,35 @@ namespace BinaryTechnologies.NPCs.Town
             if (NPC.downedPlantBoss) sale++;
             if (NPC.downedMoonlord) sale++;
 
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.BitShard>());
-            shop.item[nextSlot].shopCustomPrice = shop.item[nextSlot].value / sale;
-            nextSlot++;
-
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.ByteShard>());
-            shop.item[nextSlot].shopCustomPrice = shop.item[nextSlot].value / (sale - 1);
-            nextSlot++;
-
-            if (NPC.downedMechBossAny)
+            foreach (Item item in items)
             {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.KilobyteShard>());
-                shop.item[nextSlot].shopCustomPrice = shop.item[nextSlot].value / (sale - 2);
-                nextSlot++;
-            }
+                if (item == null || item.type == ItemID.None) continue;
 
-            if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
-            {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.MegabyteShard>());
-                shop.item[nextSlot].shopCustomPrice = shop.item[nextSlot].value / (sale - 3);
-                nextSlot++;
-            }
-
-            if (NPC.downedPlantBoss)
-            {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.GigabyteShard>());
-                shop.item[nextSlot].shopCustomPrice = shop.item[nextSlot].value / (sale - 4);
-                nextSlot++;
+                if (item.type == ModContent.ItemType<Items.BitShard>())
+                {
+                    int value = item.shopCustomPrice ?? item.value;
+                    item.shopCustomPrice = value / sale;
+                }
+                if (item.type == ModContent.ItemType<Items.ByteShard>())
+                {
+                    int value = item.shopCustomPrice ?? item.value;
+                    item.shopCustomPrice = value / (sale - 1);
+                }
+                if (item.type == ModContent.ItemType<Items.KilobyteShard>())
+                {
+                    int value = item.shopCustomPrice ?? item.value;
+                    item.shopCustomPrice = value / (sale - 2);
+                }
+                if (item.type == ModContent.ItemType<Items.MegabyteShard>())
+                {
+                    int value = item.shopCustomPrice ?? item.value;
+                    item.shopCustomPrice = value / (sale - 3);
+                }
+                if (item.type == ModContent.ItemType<Items.GigabyteShard>())
+                {
+                    int value = item.shopCustomPrice ?? item.value;
+                    item.shopCustomPrice = value / (sale - 4);
+                }
             }
         }
     }

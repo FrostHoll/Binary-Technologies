@@ -23,8 +23,15 @@ namespace BinaryTechnologies
         {
             if (BinaryTechnologies.temp.JustPressed)
             {
-                
-                //Main.NewText(standingNearPortalState.ToString());
+
+                foreach (TileEntity te in TileEntity.ByID.Values)
+                {
+                    if (te.type == ModContent.TileEntityType<TEPortal>())
+                    {
+                        TEPortal portal = (TEPortal)te;
+                        Main.NewText(portal.PortalState);
+                    }
+                }
             }
         }
 
@@ -38,7 +45,7 @@ namespace BinaryTechnologies
             if(Main.rand.NextBool(8))standingNearPortalState = false;
         }
 
-        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (electpwrglove && item.DamageType == DamageClass.Melee)
             {
@@ -47,13 +54,10 @@ namespace BinaryTechnologies
                     target.AddBuff(ModContent.BuffType<Buffs.ElectShock>(), 120);
                 }
             }
-            
-            
-
-            base.OnHitNPC(item, target, damage, knockback, crit);
+            base.OnHitNPCWithItem(item, target, hit, damageDone);
         }
 
-        public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (electpwrglove && proj.DamageType == DamageClass.Melee)
             {
@@ -69,7 +73,7 @@ namespace BinaryTechnologies
                     target.AddBuff(BuffID.Confused, 180);
                 }
             }
-            base.OnHitNPCWithProj(proj, target, damage, knockback, crit);
+            base.OnHitNPCWithProj(proj, target, hit, damageDone);
         }
 
         public override void UpdateDead()

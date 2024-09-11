@@ -8,9 +8,6 @@ namespace BinaryTechnologies.Pets.TechnoSpherePet
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Techno Sphere");
-			Description.SetDefault("Is it going to defend you?");
-
 			Main.buffNoTimeDisplay[Type] = true;
 			Main.vanityPet[Type] = true;
 		}
@@ -23,7 +20,13 @@ namespace BinaryTechnologies.Pets.TechnoSpherePet
 
 			if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[projType] <= 0)
 			{
-				Projectile.NewProjectile(player.GetProjectileSource_Buff(buffIndex), player.Center, Vector2.Zero, projType, 0, 0f, player.whoAmI);
+				Projectile.NewProjectile(player.GetSource_Buff(buffIndex), 
+					player.Center, 
+					Vector2.Zero, 
+					projType, 
+					0, 
+					0f, 
+					player.whoAmI);
 			}
 		}
 	}

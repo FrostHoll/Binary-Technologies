@@ -7,12 +7,6 @@ namespace BinaryTechnologies.Items.Tools
 {
 	public class BitMultiToolPickaxe : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Bit MultiTool [Pickaxe]");
-			Tooltip.SetDefault("Right click to switch to hamaxe");
-		}
-
 		public override void SetDefaults()
 		{
 			Item.damage = 6;
@@ -35,8 +29,8 @@ namespace BinaryTechnologies.Items.Tools
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(ModContent.ItemType<Items.ElectMaterial>(), 3);
-			recipe.AddIngredient(ModContent.ItemType<Items.BitShard>(), 8);
+			recipe.AddIngredient(ModContent.ItemType<ElectMaterial>(), 3);
+			recipe.AddIngredient(ModContent.ItemType<BitShard>(), 8);
 			recipe.AddTile(ModContent.TileType<Tiles.TilePC>());
 			recipe.Register();
 		}
@@ -48,7 +42,7 @@ namespace BinaryTechnologies.Items.Tools
 
 		public override void RightClick(Player player)
 		{
-			player.QuickSpawnItem(ModContent.ItemType<Items.Tools.BitMultiToolHamaxe>());
+			player.QuickSpawnItem(Item.GetSource_GiftOrReward(), ModContent.ItemType<BitMultiToolHamaxe>());
 		}
 
 		public override bool? PrefixChance(int pre, UnifiedRandom rand) => (pre != -3 && pre != -1);

@@ -1,22 +1,16 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 
 namespace BinaryTechnologies.Items.Weapons
 {
 	public class BitBow : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			Tooltip.SetDefault("This is the simpliest bow of information.");
-		}
-
 		public override void SetDefaults()
 		{
 			Item.damage = 20;
 			Item.DamageType = DamageClass.Ranged;
-			Item.scale = 0.6f;
+			//Item.scale = 0.6f;
 			Item.width = 40;
 			Item.height = 40;
 			Item.useTime = 20;
@@ -35,7 +29,7 @@ namespace BinaryTechnologies.Items.Weapons
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(ItemType<BitShard>(), 8);
+			recipe.AddIngredient(ModContent.ItemType<BitShard>(), 8);
 			recipe.AddTile(ModContent.TileType<Tiles.TilePC>());
 			recipe.Register();
 		}

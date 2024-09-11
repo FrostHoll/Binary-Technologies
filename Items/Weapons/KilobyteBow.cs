@@ -8,12 +8,6 @@ namespace BinaryTechnologies.Items.Weapons
 {
     public class KilobyteBow : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            Tooltip.SetDefault("These sensations are truly scary...\n" +
-                "Has 33% chance not to consume ammo");
-        }
-
         public override void SetDefaults()
         {
             Item.damage = 48;
@@ -31,7 +25,7 @@ namespace BinaryTechnologies.Items.Weapons
             Item.useAmmo = AmmoID.Arrow;
             Item.shoot = ProjectileID.WoodenArrowFriendly;
             Item.shootSpeed = 9f;
-            Item.scale = 0.8f;
+            //Item.scale = 0.8f;
         }
 
         public override void AddRecipes()
@@ -43,18 +37,26 @@ namespace BinaryTechnologies.Items.Weapons
             recipe.Register();
         }
 
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             int numberProjectiles = 3;
             for (int i = 0; i < numberProjectiles; i++)
             {
                 Vector2 perturbedSpeed = velocity.RotatedByRandom(MathHelper.ToRadians(20));
-                Projectile.NewProjectile(source, position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, 
+                    position.X, 
+                    position.Y, 
+                    perturbedSpeed.X, 
+                    perturbedSpeed.Y, 
+                    type, 
+                    damage, 
+                    knockback, 
+                    player.whoAmI);
             }
             return false;
         }
 
-        public override bool CanConsumeAmmo(Player player)
+        public override bool CanConsumeAmmo(Item ammo, Player player)
         {
             return Main.rand.NextFloat() >= .33f;
         }

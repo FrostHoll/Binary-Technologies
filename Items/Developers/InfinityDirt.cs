@@ -6,14 +6,6 @@ namespace BinaryTechnologies.Items.Developers
 {
 	public class InfinityDirt : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Infinite Dirt block");
-			Tooltip.SetDefault("For you mwah~~" +
-				"\n[c/33d4c6:- Developer's Item -]" +
-				"\n [c/33d4c6: Good3rip]");
-		}
-
 		public override void SetDefaults()
 		{
 			Item.width = 12;
@@ -34,7 +26,7 @@ namespace BinaryTechnologies.Items.Developers
 		{
 			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.DirtBlock, 999);
-			recipe.AddIngredient(ModContent.ItemType<Items.TerrabyteShard>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<TerrabyteShard>(), 1);
 			recipe.Register();
 		}
 	}

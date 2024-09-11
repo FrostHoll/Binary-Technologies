@@ -1,19 +1,12 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace BinaryTechnologies.Items.Weapons
 {
 	public class BitSword : ModItem
 	{
-
-		public override void SetStaticDefaults()
-		{
-			Tooltip.SetDefault("This is the simpliest sword of information.");
-		}
-
 		public override void SetDefaults()
 		{
 			
@@ -34,7 +27,7 @@ namespace BinaryTechnologies.Items.Weapons
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(ItemType<BitShard>(), 8);
+			recipe.AddIngredient(ModContent.ItemType<BitShard>(), 8);
 			recipe.AddTile(ModContent.TileType<Tiles.TilePC>());
 			recipe.Register();
 		}

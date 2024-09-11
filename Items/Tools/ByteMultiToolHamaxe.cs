@@ -9,12 +9,6 @@ namespace BinaryTechnologies.Items.Tools
 {
 	public class ByteMultiToolHamaxe : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Byte MultiTool [Hamaxe]");
-			Tooltip.SetDefault("Right click to switch to pickaxe");
-		}
-
 		public override void SetDefaults()
 		{
 
@@ -42,7 +36,7 @@ namespace BinaryTechnologies.Items.Tools
 
         public override void RightClick(Player player)
         {
-            int _item = player.QuickSpawnItem(ModContent.ItemType<Items.Tools.ByteMultiToolPickaxe>());
+            player.QuickSpawnItem(Item.GetSource_GiftOrReward(), ModContent.ItemType<ByteMultiToolPickaxe>());
         }
 
 		public override bool? PrefixChance(int pre, UnifiedRandom rand) => (pre != -3 && pre != -1);

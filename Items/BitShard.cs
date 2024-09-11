@@ -8,13 +8,6 @@ namespace BinaryTechnologies.Items
 {
     class BitShard : ModItem
     {
-        
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Bit Shard");
-            Tooltip.SetDefault("This shard contains information of this world.");
-        }
-
         public override void SetDefaults()
         {
             Item.width = 12;

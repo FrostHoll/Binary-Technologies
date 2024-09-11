@@ -7,12 +7,6 @@ namespace BinaryTechnologies.Items.Accessories
 {
 	public class LifeCharm : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Life Support Device");
-			Tooltip.SetDefault("Greatly increased life regeneration when Activated Portal is nearby");
-		}
-
 		public override void SetDefaults()
 		{
 			Item.width = 16;

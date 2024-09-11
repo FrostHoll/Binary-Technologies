@@ -6,12 +6,6 @@ namespace BinaryTechnologies.Items.Placeable
 {
 	public class PC : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("PC");
-			Tooltip.SetDefault("On this table you can create things filled with information.");
-		}
-
 		public override void SetDefaults()
 		{
 			Item.width = 28;
@@ -34,7 +28,7 @@ namespace BinaryTechnologies.Items.Placeable
 			recipe.AddRecipeGroup(RecipeGroupID.IronBar, 15);
 			recipe.AddIngredient(ItemID.Glass, 5);
 			recipe.AddIngredient(ItemID.Wire, 20);
-			recipe.AddIngredient(ModContent.ItemType<Items.ElectMaterial>(), 3);
+			recipe.AddIngredient(ModContent.ItemType<ElectMaterial>(), 3);
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.Register();
 		}

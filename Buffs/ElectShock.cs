@@ -7,8 +7,6 @@ namespace BinaryTechnologies.Buffs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Electrical Shock");
-			Description.SetDefault("Greatly losing life");
 			Main.debuff[Type] = true;
 			Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = true;

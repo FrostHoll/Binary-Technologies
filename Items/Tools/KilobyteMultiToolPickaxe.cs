@@ -7,12 +7,6 @@ namespace BinaryTechnologies.Items.Tools
 {
 	public class KilobyteMultiToolPickaxe : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Kilobyte MultiTool [Pickaxe]");
-			Tooltip.SetDefault("Right click to switch to hamaxe");
-		}
-
 		public override void SetDefaults()
 		{
 			Item.damage = 35;
@@ -34,8 +28,8 @@ namespace BinaryTechnologies.Items.Tools
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(ModContent.ItemType<Items.Tools.ByteMultiToolPickaxe>(), 1);
-			recipe.AddIngredient(ModContent.ItemType<Items.KilobyteUpgradeModule>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<ByteMultiToolPickaxe>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<KilobyteUpgradeModule>(), 1);
 			recipe.AddTile(ModContent.TileType<Tiles.TilePC>());
 			recipe.Register();
 		}
@@ -47,7 +41,7 @@ namespace BinaryTechnologies.Items.Tools
 
 		public override void RightClick(Player player)
 		{
-			player.QuickSpawnItem(ModContent.ItemType<Items.Tools.KilobyteMultiToolHamaxe>());
+			player.QuickSpawnItem(Item.GetSource_GiftOrReward(), ModContent.ItemType<KilobyteMultiToolHamaxe>());
 		}
 
 		public override bool? PrefixChance(int pre, UnifiedRandom rand) => (pre != -3 && pre != -1);

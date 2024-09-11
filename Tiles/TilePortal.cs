@@ -7,6 +7,7 @@ using Terraria.Audio;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
+using Terraria.Localization;
 
 namespace BinaryTechnologies.Tiles
 {
@@ -24,7 +25,7 @@ namespace BinaryTechnologies.Tiles
         public override bool IsTileValidForEntity(int x, int y)
         {
             Tile tile = Main.tile[x, y];
-            return tile.IsActive && tile.type == ModContent.TileType<Tiles.TilePortal>() && tile.frameX == 0 && tile.frameY == 0;
+            return tile.HasTile && tile.TileType == ModContent.TileType<Tiles.TilePortal>() && tile.TileFrameX == 0 && tile.TileFrameY == 0;
         }
 
         public override void SaveData(TagCompound tag)
@@ -49,10 +50,19 @@ namespace BinaryTechnologies.Tiles
         {
             if (stateChanged)
             {
+                Main.NewText("stateChanged");
                 NetMessage.SendData(MessageID.TileEntitySharing, -1, -1, null, ID, Position.X, Position.Y);
                 stateChanged = false;
             }
-            
+
+        }
+
+        public override void OnNetPlace()
+        {
+            if (Main.netMode == NetmodeID.Server)
+            {
+                NetMessage.SendData(MessageID.TileEntitySharing, -1, -1, null, ID, Position.X, Position.Y);
+            }
         }
 
 
@@ -66,13 +76,24 @@ namespace BinaryTechnologies.Tiles
             _portalState = reader.ReadInt32();
         }
 
+        public void SyncTE()
+        {
+            //if (Main.netMode == NetmodeID.Server)
+            //{
+            //    return;
+            //}
+            Main.NewText("sync");
+            NetMessage.SendData(MessageID.TileEntitySharing, -1, -1, null, ID, Position.X, Position.Y);
+        }
+
         public override int Hook_AfterPlacement(int i, int j, int type, int style, int direction, int alternate)
         {
-            Main.NewText("i " + i + " j " + j + " t " + type + " s " + style + " d " + direction);
             if (Main.netMode == NetmodeID.MultiplayerClient)
             {
-                NetMessage.SendTileSquare(Main.myPlayer, i, j, 3);
-                NetMessage.SendData(MessageID.TileEntityPlacement, -1, -1, null, i, j, Type, 0f, 0, 0, 0);
+                NetMessage.SendTileSquare(Main.myPlayer, i, j, 6, 10);
+                
+                //NetMessage.SendData(MessageID.TileEntityPlacement, -1, -1, null, i, j, Type, 0f, 0, 0, 0);
+                NetMessage.SendData(MessageID.TileEntityPlacement, -1, -1, null, i, j, Type);
                 return -1;
             }
             return Place(i, j);
@@ -97,8 +118,7 @@ namespace BinaryTechnologies.Tiles
             TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(ModContent.GetInstance<TEPortal>().Hook_AfterPlacement, -1, 0, true);
             TileObjectData.addTile(Type);
             AnimationFrameHeight = 180;
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Portal");
+            LocalizedText name = CreateMapEntryName();
             AddMapEntry(new Color(200, 200, 200), name);
             DustType = DustID.Stone;
         }
@@ -109,20 +129,21 @@ namespace BinaryTechnologies.Tiles
         {
             //Main.NewText(i + " " + j);
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            //TEPortal entity = GetPortalEntity(i, j);
+            if (TileUtils.TryGetTileEntityAs(i, j, out TEPortal entity))
             {
-                TEPortal entity = GetPortalEntity(i, j);
                 _portalState = entity.PortalState;
                 Main.LocalPlayer.GetModPlayer<BinaryTechnologiesPlayer>().standingNearPortalState = entity.PortalState != 0;
             }
-            
+
+
         }
 
         private TEPortal GetPortalEntity(int i, int j)
         {
             Tile tile = Main.tile[i, j];
-            int left = i - tile.frameX / 18;
-            int top = j - tile.frameY % AnimationFrameHeight / 18;
+            int left = i - tile.TileFrameX / 18;
+            int top = j - tile.TileFrameY % AnimationFrameHeight / 18;
             int index = ModContent.GetInstance<TEPortal>().Find(left, top);
             if (index == -1)
             {
@@ -138,7 +159,7 @@ namespace BinaryTechnologies.Tiles
         //    Tile tile = Main.tile[i, j];
         //    if (tile.frameX / AnimationFrameHeight > 0)
         //    {
-                
+
         //        r = 1f;
         //        g = 1f;
         //        b = 1f;
@@ -156,7 +177,7 @@ namespace BinaryTechnologies.Tiles
 
             if (_portalState == 1)
             {
-                if(frame < 1 || frame > 3) frame = 1;
+                if (frame < 1 || frame > 3) frame = 1;
 
                 if (++frameCounter >= 18)
                 {
@@ -165,29 +186,37 @@ namespace BinaryTechnologies.Tiles
                     if (++frame > 3) frame = 1;
                 }
             }
-            
+
         }
 
         public override bool RightClick(int i, int j)
         {
             Player player = Main.LocalPlayer;
 
-            TEPortal entity = GetPortalEntity(i, j);
+            Main.mouseRightRelease = false;
+
+            //TEPortal entity = GetPortalEntity(i, j);
             int byteShard = ModContent.ItemType<Items.ByteShard>();
-            if (entity.PortalState == 0 && player.ConsumeItem(byteShard))
+
+            if (TileUtils.TryGetTileEntityAs(i, j, out TEPortal entity))
             {
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.MaxMana, i * 16, j * 16);
-                for (int k = 0; k < 50; k++)
+                if (entity.PortalState == 0 && player.ConsumeItem(byteShard))
                 {
-                    Tile tile = Main.tile[i, j];
-                    int left = i - tile.frameX / 18;
-                    int top = j - tile.frameY % AnimationFrameHeight / 18;
-                    int dustIndex = Dust.NewDust(new Vector2(left * 16, top * 16), 96, 160, 298, 0f, 0f, 255, default(Color), 1f);
-                    Main.dust[dustIndex].velocity *= 1.4f;
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.MaxMana, new Vector2(i * 16, j * 16));
+                    for (int k = 0; k < 50; k++)
+                    {
+                        Tile tile = Main.tile[i, j];
+                        int left = i - tile.TileFrameX / 18;
+                        int top = j - tile.TileFrameY % AnimationFrameHeight / 18;
+                        int dustIndex = Dust.NewDust(new Vector2(left * 16, top * 16), 96, 160, 298, 0f, 0f, 255, default(Color), 1f);
+                        Main.dust[dustIndex].velocity *= 1.4f;
+                    }
+
+                    entity.PortalState = 1;
+                    entity.stateChanged = true;
+                    entity.SyncTE();
+                    //Main.NewText("Portal was activated by Byte Shard!");
                 }
-                entity.PortalState = 1;
-                entity.stateChanged = true;
-                //Main.NewText("Portal was activated by Byte Shard!");
             }
             return true;
         }
@@ -206,18 +235,10 @@ namespace BinaryTechnologies.Tiles
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 96, 160, ModContent.ItemType<Items.Placeable.Portal>());
-            TEPortal entity = GetPortalEntity(i, j);
-            if (entity.PortalState > 0)
-            {
-                int shard = entity.PortalState switch
-                {
-                    1 => ModContent.ItemType<Items.ByteShard>(),
-                    _ => ModContent.ItemType<Items.ByteShard>(),
-                };
-                Item.NewItem(i * 16, j * 16, 96, 160, shard);
-            }
-            ModContent.GetInstance<TEPortal>().Kill(i, j);
+            //TEPortal entity = GetPortalEntity(i, j);
+            Point16 origin = TileUtils.GetTileOrigin(i, j);
+            ModContent.GetInstance<TEPortal>().Kill(origin.X, origin.Y);
+            //ModContent.GetInstance<TEPortal>().Kill(i, j);
             _portalState = 0;
         }
     }

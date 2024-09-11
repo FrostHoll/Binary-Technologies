@@ -9,8 +9,6 @@ namespace BinaryTechnologies.Pets.TechnoSpherePet
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Techno Sphere");
-
             Main.projFrames[Projectile.type] = 8;
             Main.projPet[Projectile.type] = true;
         }
@@ -68,8 +66,6 @@ namespace BinaryTechnologies.Pets.TechnoSpherePet
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Techno Sphere");
-
             //Main.projFrames[Projectile.type] = 1;
             Main.projPet[Projectile.type] = true;
         }

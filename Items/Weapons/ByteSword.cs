@@ -6,11 +6,6 @@ namespace BinaryTechnologies.Items.Weapons
 {
     class ByteSword : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            Tooltip.SetDefault("This is x8 times more powerful sword than Bit Sword! (nope)");
-        }
-
         public override void SetDefaults()
         {
             Item.damage = 60;

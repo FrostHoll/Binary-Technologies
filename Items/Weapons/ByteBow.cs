@@ -6,14 +6,8 @@ namespace BinaryTechnologies.Items.Weapons
 {
 	public class ByteBow : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			Tooltip.SetDefault("This is x8 times more powerful bow than Bit Bow! (nope)");
-		}
-
 		public override void SetDefaults()
 		{
-
 			Item.damage = 34;
 			Item.DamageType = DamageClass.Ranged;
 			Item.width = 40;
@@ -30,6 +24,7 @@ namespace BinaryTechnologies.Items.Weapons
 			Item.useAmmo = AmmoID.Arrow;
 			Item.shoot = ProjectileID.WoodenArrowFriendly;
 			Item.shootSpeed = 7.5f;
+			Item.noMelee = true;
 		}
 
 		public override void AddRecipes()
@@ -41,9 +36,9 @@ namespace BinaryTechnologies.Items.Weapons
 			recipe.Register();
 		}
 
-		public override bool CanConsumeAmmo(Player player)
-		{
-			return !(player.itemAnimation < Item.useAnimation - 2);
-		}
+        public override bool CanConsumeAmmo(Item ammo, Player player)
+        {
+            return !(player.itemAnimation < Item.useAnimation - 2);
+        }
 	}
 }

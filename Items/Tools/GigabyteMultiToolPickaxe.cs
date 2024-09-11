@@ -7,12 +7,6 @@ namespace BinaryTechnologies.Items.Tools
 {
 	public class GigabyteMultiToolPickaxe : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Gigabyte MultiTool [Pickaxe]");
-			Tooltip.SetDefault("Right click to switch to hamaxe");
-		}
-
 		public override void SetDefaults()
 		{
 			Item.damage = 42;
@@ -35,8 +29,8 @@ namespace BinaryTechnologies.Items.Tools
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(ModContent.ItemType<Items.Tools.MegabyteMultiToolPickaxe>(), 1);
-			recipe.AddIngredient(ModContent.ItemType<Items.GigabyteUpgradeModule>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<MegabyteMultiToolPickaxe>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<GigabyteUpgradeModule>(), 1);
 			recipe.AddTile(ModContent.TileType<Tiles.TilePC>());
 			recipe.Register();
 		}
@@ -50,7 +44,7 @@ namespace BinaryTechnologies.Items.Tools
 
 		public override void RightClick(Player player)
 		{
-			player.QuickSpawnItem(ModContent.ItemType<Items.Tools.GigabyteMultiToolHamaxe>());
+			player.QuickSpawnItem(Item.GetSource_GiftOrReward(), ModContent.ItemType<GigabyteMultiToolHamaxe>());
 		}
 
 		public override bool? PrefixChance(int pre, UnifiedRandom rand) => (pre != -3 && pre != -1);

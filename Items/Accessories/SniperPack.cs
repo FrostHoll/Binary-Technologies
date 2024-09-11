@@ -7,14 +7,6 @@ namespace BinaryTechnologies.Items.Accessories
 {
 	public class SniperPack : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Starter Sniper's Kit");
-			Tooltip.SetDefault("8% increased ranged damage" +
-				"\n4% increased ranged crit chance" +
-				"\nRanged attacks have a small chance to confuse your foe");
-		}
-
 		public override void SetDefaults()
 		{
 			Item.width = 16;

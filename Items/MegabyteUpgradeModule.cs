@@ -9,13 +9,6 @@ namespace BinaryTechnologies.Items
 {
     class MegabyteUpgradeModule : ModItem
     {
-
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Megabyte Upgrade Module");
-            Tooltip.SetDefault("Imbue a weapon with the power of Megabyte Shard.");
-        }
-
         public override void SetDefaults()
         {
             Item.width = 12;
@@ -28,8 +21,8 @@ namespace BinaryTechnologies.Items
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ModContent.ItemType<Items.BaseUpgradeModule>(), 1);
-            recipe.AddIngredient(ModContent.ItemType<Items.MegabyteShard>(), 1);
+            recipe.AddIngredient(ModContent.ItemType<BaseUpgradeModule>(), 1);
+            recipe.AddIngredient(ModContent.ItemType<MegabyteShard>(), 1);
             recipe.AddTile(ModContent.TileType<Tiles.TilePC>());
             recipe.Register();
         }

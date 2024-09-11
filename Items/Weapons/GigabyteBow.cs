@@ -8,13 +8,6 @@ namespace BinaryTechnologies.Items.Weapons
 {
 	public class GigabyteBow : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			Tooltip.SetDefault("Shoots 3 arrows at once." +
-				"\nNot moving for 6 seconds putting you in rage mode, shooting one arrow per shot rapidly" +
-				"\nHas 33% chance not to consume ammo");
-		}
-
 		public override void SetDefaults()
 		{
 			Item.damage = defaultDamage;
@@ -32,7 +25,7 @@ namespace BinaryTechnologies.Items.Weapons
 			Item.useAmmo = AmmoID.Arrow;
 			Item.shoot = ProjectileID.WoodenArrowFriendly;
 			Item.shootSpeed = 11f;
-			Item.scale = 0.8f;
+			//Item.scale = 0.8f;
 			Item.noMelee = true;
 		}
 
@@ -96,21 +89,21 @@ namespace BinaryTechnologies.Items.Weapons
 			}
 		}
 
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (isBuff)
             {
-				return true;
+                return true;
             }
-			Projectile.NewProjectile(source, position.X, position.Y + 15, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI);
-			Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI);
-			Projectile.NewProjectile(source, position.X, position.Y - 15, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI);
-			return false;
-		}
+            Projectile.NewProjectile(source, position.X, position.Y + 15, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI);
+            Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI);
+            Projectile.NewProjectile(source, position.X, position.Y - 15, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI);
+            return false;
+        }
 
-		public override bool CanConsumeAmmo(Player player)
-		{
-			return Main.rand.NextFloat() >= .33f;
-		}
+        public override bool CanConsumeAmmo(Item ammo, Player player)
+        {
+            return Main.rand.NextFloat() >= .33f;
+        }
 	}
 }

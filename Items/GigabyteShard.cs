@@ -8,13 +8,6 @@ namespace BinaryTechnologies.Items
 {
     class GigabyteShard : ModItem
     {
-
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Gigabyte Shard");
-            Tooltip.SetDefault("The existence of this is beyond your comprehension.");
-        }
-
         public override void SetDefaults()
         {
             Item.width = 16;

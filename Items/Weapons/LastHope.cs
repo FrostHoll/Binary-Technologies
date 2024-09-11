@@ -1,19 +1,12 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 using Microsoft.Xna.Framework;
-using Terraria.DataStructures;
 
 namespace BinaryTechnologies.Items.Weapons
 {
 	public class LastHope : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			Tooltip.SetDefault("This sword is imbued with the mighty power of dying hope.");
-		}
-
 		public override void SetDefaults()
 		{
 			Item.damage = 800;

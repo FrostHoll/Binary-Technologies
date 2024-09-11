@@ -13,10 +13,9 @@ namespace BinaryTechnologies.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Broken Robot");
             Main.npcFrameCount[NPC.type] = 3;
 
-            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            var drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Velocity = 0.5f,
                 Direction = -1
@@ -57,7 +56,7 @@ namespace BinaryTechnologies.NPCs
             return SpawnCondition.OverworldNightMonster.Chance * 0.2f;
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             for (int i = 0; i < 10; i++)
             {
@@ -70,7 +69,7 @@ namespace BinaryTechnologies.NPCs
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if (!target.HasBuff(BuffID.Electrified))
             {
@@ -83,7 +82,7 @@ namespace BinaryTechnologies.NPCs
                     if (Main.rand.NextBool(3)) target.AddBuff(ModContent.BuffType<Buffs.ElectShock>(), 60);
                 }
             }
-            base.OnHitPlayer(target, damage, crit);
+            base.OnHitPlayer(target, hurtInfo);
         }
 
         private const int AI_LASER_TIMER = 0;
@@ -102,10 +101,19 @@ namespace BinaryTechnologies.NPCs
 
             if (NPC.localAI[AI_LASER_TIMER] <= 0f)
             {
-                Vector2 projDirection = Vector2.Normalize(player.position - NPC.Top) * 8f;
-                int proj = Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), new Vector2(NPC.Top.X, NPC.Top.Y + 15f), projDirection, ProjectileID.DeathLaser, NPC.damage / 8, 0f, Main.myPlayer);
-                NPC.localAI[AI_LASER_TIMER] = 120f;
-                NPC.netUpdate = true;
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    Vector2 projDirection = Vector2.Normalize(player.position - NPC.Top) * 8f;
+                    int proj = Projectile.NewProjectile(NPC.GetSource_FromThis(), 
+                        new Vector2(NPC.Top.X, NPC.Top.Y + 15f), 
+                        projDirection, 
+                        ProjectileID.DeathLaser, 
+                        NPC.damage / 8, 
+                        0f, 
+                        Main.myPlayer);
+                    NPC.localAI[AI_LASER_TIMER] = 120f;
+                    NPC.netUpdate = true;
+                }
             }
             else
             {

@@ -9,12 +9,9 @@ namespace BinaryTechnologies.Items
 {
     class TechnoSphereSummon : ModItem
     {
-
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Suspicious Looking Transmitter");
-            Tooltip.SetDefault("It sends signal, which cannot be recieved in this world." +
-                "\nSummons Techno Sphere, if there is Activated Portal nearby.");
+            Item.ResearchUnlockCount = 3;
             ItemID.Sets.SortingPriorityBossSpawns[Type] = 12;
         }
 
@@ -31,6 +28,11 @@ namespace BinaryTechnologies.Items
             Item.maxStack = 20;
         }
 
+        public override void ModifyResearchSorting(ref ContentSamples.CreativeHelper.ItemGroup itemGroup)
+        {
+            itemGroup = ContentSamples.CreativeHelper.ItemGroup.BossSpawners;
+        }
+
         public override bool CanUseItem(Player player)
         {
             bool activatedPortal = player.GetModPlayer<BinaryTechnologiesPlayer>().standingNearPortalState;
@@ -41,7 +43,7 @@ namespace BinaryTechnologies.Items
         {
             if (player.whoAmI == Main.myPlayer)
             {
-                SoundEngine.PlaySound(SoundID.Roar, player.position, 0);
+                SoundEngine.PlaySound(SoundID.Roar, player.position);
 
                 int type = ModContent.NPCType<NPCs.Bosses.TechnoSphere.TechnoSphere>();
 
@@ -51,7 +53,7 @@ namespace BinaryTechnologies.Items
                 }
                 else
                 {
-                    NetMessage.SendData(MessageID.SpawnBoss, number: player.whoAmI, number2: type);
+                    NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: player.whoAmI, number2: type);
                 }
             }
 

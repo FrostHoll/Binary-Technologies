@@ -14,9 +14,7 @@ namespace BinaryTechnologies.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Techno Slime");
             Main.npcFrameCount[NPC.type] = Main.npcFrameCount[NPCID.BlueSlime];
-
         }
 
         public override void SetDefaults()
@@ -40,7 +38,7 @@ namespace BinaryTechnologies.NPCs
         {
             bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
-                new FlavorTextBestiaryInfoElement(Language.GetTextValue(BinaryTechnologies.TransPath + "Bestiary.BrokenRobot"))
+                new FlavorTextBestiaryInfoElement(Language.GetTextValue(BinaryTechnologies.TransPath + "Bestiary.TechnoSlime"))
             });
         }
 
@@ -49,7 +47,7 @@ namespace BinaryTechnologies.NPCs
             return SpawnCondition.OverworldDaySlime.Chance * 0.2f;
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             for (int i = 0; i < 10; i++)
             {
@@ -93,7 +91,13 @@ namespace BinaryTechnologies.NPCs
                                 SoundEngine.PlaySound(SoundID.Item17, NPC.position);
                                 Vector2 projVector = -Vector2.UnitY * 4f;
                                 projVector = projVector.RotatedBy(MathHelper.ToRadians(Main.rand.NextFloat(-15f, 15f)));
-                                Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), NPC.Top, projVector, ModContent.ProjectileType<Projectiles.SlimeProjectile>(), NPC.damage / 2, 0.5f, Main.myPlayer);
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), 
+                                    NPC.Top, 
+                                    projVector, 
+                                    ModContent.ProjectileType<Projectiles.SlimeProjectile>(), 
+                                    NPC.damage / 2, 
+                                    0.5f, 
+                                    Main.myPlayer);
                             }
                             ShootTimer = 120f;
                             NPC.netUpdate = true;

@@ -9,14 +9,6 @@ namespace BinaryTechnologies.Items
 {
     class BaseUpgradeModule : ModItem
     {
-
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Base Upgrade Module");
-            Tooltip.SetDefault("It is just an empty shell for powerful energy..." +
-                "\nMaybe it will become more useful if you put a piece of information in it?");
-        }
-
         public override void SetDefaults()
         {
             Item.width = 12;
@@ -29,7 +21,7 @@ namespace BinaryTechnologies.Items
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ModContent.ItemType<Items.ElectMaterial>(), 2);
+            recipe.AddIngredient(ModContent.ItemType<ElectMaterial>(), 2);
             recipe.AddIngredient(ItemID.Wire, 10);            
             recipe.AddTile(ModContent.TileType<Tiles.TilePC>());
             recipe.Register();

@@ -17,21 +17,12 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Techno Sphere");
             Main.npcFrameCount[NPC.type] = 12;
 
             NPCID.Sets.MPAllowedEnemies[Type] = true;
             NPCID.Sets.BossBestiaryPriority.Add(Type);
 
-            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = new int[] {
-                    BuffID.Poisoned,
-
-                    BuffID.Confused
-                }
-            };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            NPCID.Sets.ImmuneToAllBuffs[Type] = true;
         }
 
         public override string Texture => "BinaryTechnologies/NPCs/Bosses/TechnoSphere/SphereCore";
@@ -52,10 +43,10 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
             NPC.boss = true;
             NPC.noGravity = true;
             NPC.noTileCollide = true;
+            NPC.SpawnWithHigherTime(30);
             NPC.npcSlots = 10f;
             NPC.aiStyle = -1;
             NPC.scale = 1.5f;
-            BossBag = ModContent.ItemType<Items.TechnoSphereBag>();
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -66,7 +57,7 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
             });
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (Main.netMode == NetmodeID.Server)
             {
@@ -81,11 +72,6 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
                 dust.velocity.Y += Main.rand.Next(-50, 51) * 0.01f;
                 dust.scale *= 1f + Main.rand.Next(-30, 31) * 0.01f;
             }
-        }
-
-        public override void OnHitPlayer(Player target, int damage, bool crit)
-        {
-
         }
 
         public bool SecondPhase
@@ -156,7 +142,12 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
 
                 int index;
                 TechnoSphereShield shield;
-                index = NPC.NewNPC((int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<NPCs.Bosses.TechnoSphere.TechnoSphereShield>(), 0, NPC.whoAmI);
+                index = NPC.NewNPC(NPC.GetSource_FromAI(), 
+                    (int)NPC.Center.X, 
+                    (int)NPC.Center.Y, 
+                    ModContent.NPCType<TechnoSphereShield>(), 
+                    0, 
+                    NPC.whoAmI);
                 shield = Main.npc[index].ModNPC as TechnoSphereShield;
                 if (shield != null)
                 {
@@ -166,7 +157,12 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
                 {
                     NetMessage.SendData(MessageID.SyncNPC, number: index);
                 }
-                index = NPC.NewNPC((int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<NPCs.Bosses.TechnoSphere.TechnoSphereShield>(), 0, NPC.whoAmI);
+                index = NPC.NewNPC(NPC.GetSource_FromAI(), 
+                    (int)NPC.Center.X, 
+                    (int)NPC.Center.Y, 
+                    ModContent.NPCType<TechnoSphereShield>(), 
+                    0, 
+                    NPC.whoAmI);
                 shield = Main.npc[index].ModNPC as TechnoSphereShield;
                 if (shield != null)
                 {
@@ -176,7 +172,12 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
                 {
                     NetMessage.SendData(MessageID.SyncNPC, number: index);
                 }
-                index = NPC.NewNPC((int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<NPCs.Bosses.TechnoSphere.TechnoSphereShield>(), 0, NPC.whoAmI);
+                index = NPC.NewNPC(NPC.GetSource_FromAI(), 
+                    (int)NPC.Center.X, 
+                    (int)NPC.Center.Y, 
+                    ModContent.NPCType<TechnoSphereShield>(), 
+                    0, 
+                    NPC.whoAmI);
                 shield = Main.npc[index].ModNPC as TechnoSphereShield;
                 if (shield != null)
                 {
@@ -186,7 +187,12 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
                 {
                     NetMessage.SendData(MessageID.SyncNPC, number: index);
                 }
-                index = NPC.NewNPC((int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<NPCs.Bosses.TechnoSphere.TechnoSphereShield>(), 0, NPC.whoAmI);
+                index = NPC.NewNPC(NPC.GetSource_FromAI(), 
+                    (int)NPC.Center.X, 
+                    (int)NPC.Center.Y, 
+                    ModContent.NPCType<TechnoSphereShield>(), 
+                    0, 
+                    NPC.whoAmI);
                 shield = Main.npc[index].ModNPC as TechnoSphereShield;
                 if (shield != null)
                 {
@@ -206,7 +212,6 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
 
 
             MovingTimer--;
-            Vector2 targetPos;
             if (MovingTimer < 0f)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -255,7 +260,7 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
                     {
 
                         Vector2 projDirection = Vector2.Normalize(player.position - NPC.Center) * 8f;
-                        Projectile.NewProjectile(NPC.GetProjectileSpawnSource(),
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(),
                             new Vector2(NPC.Center.X, NPC.Center.Y),
                             projDirection, ProjectileID.DeathLaser,
                             NPC.damage / 4, 0f, Main.myPlayer);
@@ -360,7 +365,7 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
             if (ShieldLeft == 0 && MovingPosX != 0f && !SecondPhase)
             {
                 SecondPhase = true;
-                SoundEngine.PlaySound(SoundID.Roar, NPC.position, 0);
+                SoundEngine.PlaySound(SoundID.Roar, NPC.position);
                 speed /= 2;
                 NPC.defense = 20;
                 NPC.netUpdate = true;
@@ -377,18 +382,16 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
 
         public void ShieldKilled()
         {
-            Main.NewText("-1");
+            Main.NewText($"Shield killed. Left: {ShieldLeft}");
             ShieldLeft--;
             if(Main.netMode == NetmodeID.Server) NetMessage.SendData(MessageID.SyncNPC, number: NPC.whoAmI);
-            //Main.NewText(ShieldLeft);
-
         }
 
 
 
         public override void OnKill()
         {
-            //NPC.SetEventFlagCleared(ref DownedBossSystem.downedMinionBoss, -1);
+            
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
@@ -396,10 +399,17 @@ namespace BinaryTechnologies.NPCs.Bosses.TechnoSphere
             LeadingConditionRule nonExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
             nonExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.ElectMaterial>(), 3, 1, 1));
             nonExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.ByteShard>(), 1, 2, 4));
-            npcLoot.Add(ItemDropRule.BossBag(BossBag));
+            npcLoot.Add(nonExpertRule);
+
+            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<Items.TechnoSphereBag>()));
+
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<Items.Placeable.TechnoSphereRelic>()));
             npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<Pets.TechnoSpherePet.TechnoSpherePetItem>(), 4));
-            npcLoot.Add(nonExpertRule);
+        }
+
+        public override void BossLoot(ref string name, ref int potionType)
+        {
+            base.BossLoot(ref name, ref potionType);
         }
     }
 }

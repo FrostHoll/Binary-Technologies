@@ -6,11 +6,6 @@ namespace BinaryTechnologies.Items.Weapons
 {
     class KilobyteSword : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            Tooltip.SetDefault("You are feeling determination in your hand...");
-        }
-
         public override void SetDefaults()
         {
             Item.damage = 70;
@@ -33,7 +28,7 @@ namespace BinaryTechnologies.Items.Weapons
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ModContent.ItemType<Items.Weapons.ByteSword>(), 1);
+            recipe.AddIngredient(ModContent.ItemType<ByteSword>(), 1);
             recipe.AddIngredient(ModContent.ItemType<KilobyteUpgradeModule>(), 1);
             recipe.AddTile(ModContent.TileType<Tiles.TilePC>());
             recipe.Register();

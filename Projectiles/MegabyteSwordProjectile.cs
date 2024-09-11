@@ -59,15 +59,22 @@ namespace BinaryTechnologies.Projectiles
 
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockBack, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             int numClouds = Main.rand.Next(3, 4);
             for (int i = 0; i < numClouds; i++)
             {
-                int spawnCloud = Main.rand.NextFromList<int>(ProjectileType<Projectiles.MegabyteCloud30>(), ProjectileType<Projectiles.MegabyteCloud32>(), ProjectileType<Projectiles.MegabyteCloud40>());
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), target.position, new Vector2(1f, 1f).RotatedByRandom(360), spawnCloud, damage / 4, knockBack, Main.LocalPlayer.whoAmI);
+                int spawnCloud = Main.rand.NextFromList(ProjectileType<MegabyteCloud30>(), 
+                    ProjectileType<MegabyteCloud32>(), 
+                    ProjectileType<MegabyteCloud40>());
+                Projectile.NewProjectile(Projectile.GetSource_OnHit(target), 
+                    target.position, 
+                    new Vector2(1f, 1f).RotatedByRandom(360), 
+                    spawnCloud, 
+                    hit.Damage / 4, 
+                    hit.Knockback, 
+                    Main.LocalPlayer.whoAmI);
             }
         }
-
     }
 }

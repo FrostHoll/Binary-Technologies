@@ -8,13 +8,6 @@ namespace BinaryTechnologies.Items
 {
     class MegabyteShard : ModItem
     {
-
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Megabyte Shard");
-            Tooltip.SetDefault("You can barely hold it in your hands...");
-        }
-
         public override void SetDefaults()
         {
             Item.width = 16;
@@ -27,7 +20,7 @@ namespace BinaryTechnologies.Items
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ModContent.ItemType<Items.KilobyteShard>(), 8);
+            recipe.AddIngredient(ModContent.ItemType<KilobyteShard>(), 8);
             recipe.AddIngredient(ItemID.Wire, 10);
             recipe.AddIngredient(ItemID.SpectreBar, 1);
             recipe.AddTile(ModContent.TileType<Tiles.TilePC>());
