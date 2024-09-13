@@ -22,6 +22,8 @@ namespace BinaryTechnologies.NPCs.Town
 
         public override string HeadTexture => "BinaryTechnologies/NPCs/Town/AncestorHead";
 
+        private const string DialoguePath = "Dialogue.Ancestor.";
+
         public override void SetDefaults()
         {
             NPC.townNPC = true;
@@ -90,20 +92,20 @@ namespace BinaryTechnologies.NPCs.Town
         {
             WeightedRandom<string> chat = new WeightedRandom<string>();
 
-            chat.Add(Language.GetTextValue(BinaryTechnologies.TransPath + "StandardDialogue1"));
-            chat.Add(Language.GetTextValue(BinaryTechnologies.TransPath + "StandardDialogue2"));
-            chat.Add(Language.GetTextValue(BinaryTechnologies.TransPath + "StandardDialogue3"));
-            chat.Add(Language.GetTextValue(BinaryTechnologies.TransPath + "StandardDialogue4"));
+            chat.Add(Language.GetTextValue(BinaryTechnologies.TransPath + DialoguePath + "StandardDialogue1"));
+            chat.Add(Language.GetTextValue(BinaryTechnologies.TransPath + DialoguePath + "StandardDialogue2"));
+            chat.Add(Language.GetTextValue(BinaryTechnologies.TransPath + DialoguePath + "StandardDialogue3"));
+            chat.Add(Language.GetTextValue(BinaryTechnologies.TransPath + DialoguePath + "StandardDialogue4"));
 
             var guide = NPC.GetFirstNPCNameOrNull(NPCID.Guide);
             if (guide != null)
             {
-                chat.Add(Language.GetTextValue(BinaryTechnologies.TransPath + "GuideDialogue"));
+                chat.Add(Language.GetTextValue(BinaryTechnologies.TransPath + DialoguePath + "GuideDialogue"));
             }
 
             if (!Main.dayTime)
             {
-                chat.Add(Language.GetTextValue(BinaryTechnologies.TransPath + "NightDialogue"));
+                chat.Add(Language.GetTextValue(BinaryTechnologies.TransPath + DialoguePath + "NightDialogue"));
             }
 
             return chat;

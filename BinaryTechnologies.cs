@@ -8,14 +8,14 @@ namespace BinaryTechnologies
     {
         public static BinaryTechnologies instance;
 
-        //public static ModKeybind temp;
+        public static ModKeybind temp;
 
         public static readonly string TransPath = "Mods.BinaryTechnologies.";
 
         public override void Load()
         {
             instance = this;
-            //temp = KeybindLoader.RegisterKeybind(this, "Test Button", "P");
+            temp = KeybindLoader.RegisterKeybind(this, "Test Button", "P");
         }
     }
 }

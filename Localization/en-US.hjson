@@ -331,7 +331,7 @@ Mods: {
 
 		NPCs: {
 			BrokenRobot.DisplayName: Broken Robot
-			TechnoSlime.DisplayName: Broken Robot
+			TechnoSlime.DisplayName: Techno Slime
 			TechnoSpehre.DisplayName: Techno Sphere
 
 			Ancestor: {
